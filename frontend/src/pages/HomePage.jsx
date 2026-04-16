@@ -51,14 +51,18 @@ export default function HomePage() {
             <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6">
               THE ROWING<br />COMPUTER.<br /><span className="text-[#007AFF]">REINVENTED.</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-[#A1A1AA] max-w-lg mb-8 leading-relaxed">
+            <p className="font-body text-base md:text-lg text-[#A1A1AA] max-w-lg mb-4 leading-relaxed">
               Your smartphone becomes a pro-grade rowing display. Real-time GPS metrics at 25Hz. Over-the-air updates. No obsolete hardware.
             </p>
+            <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-sm px-4 py-2 mb-8" data-testid="launch-date-badge">
+              <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
+              <span className="font-heading text-sm text-[#007AFF] uppercase tracking-wider">Available 1 October 2026</span>
+            </div>
             <div className="flex flex-wrap gap-4">
               <Link to="/shop"
                 className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-sm hover:bg-[#3395FF] hover:shadow-[0_0_20px_rgba(0,122,255,0.4)] transition-all inline-flex items-center gap-2"
                 data-testid="hero-shop-btn">
-                SHOP NOW <ArrowRight className="w-4 h-4" />
+                PRE-ORDER NOW <ArrowRight className="w-4 h-4" />
               </Link>
               <Link to="/technology"
                 className="bg-transparent text-white border border-white/20 font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-sm hover:border-white hover:bg-white/5 transition-all"
@@ -94,7 +98,7 @@ export default function HomePage() {
                     <div className="flex items-center justify-between">
                       <span className="font-heading text-xl text-white">{formatPrice(product.price_usd, currency)}</span>
                       <span className="text-[#007AFF] font-heading uppercase tracking-widest text-xs group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                        SHOP NOW <ArrowRight className="w-3 h-3" />
+                        PRE-ORDER <ArrowRight className="w-3 h-3" />
                       </span>
                     </div>
                   </div>
@@ -194,9 +198,9 @@ export default function HomePage() {
         <div className="max-w-2xl mx-auto text-center">
           <motion.div {...fadeUp}>
             <Mail className="w-10 h-10 text-[#007AFF] mx-auto mb-4" />
-            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">Stay Updated</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">Be First in Line</h2>
             <p className="font-body text-base text-[#A1A1AA] mb-8">
-              Get launch updates, early access, and rowing tech insights. No spam. Unsubscribe anytime.
+              CrewZ launches 1 October 2026. Sign up for launch updates, early access, and rowing tech insights.
             </p>
             {subscribed ? (
               <div className="bg-[#111111] border border-[#007AFF]/30 p-6 rounded-sm" data-testid="subscribe-success">

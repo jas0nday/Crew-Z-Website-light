@@ -62,7 +62,7 @@ export default function ProductPage() {
             <p className="font-heading text-xl text-[#A1A1AA] uppercase tracking-wide mb-6">{product.tagline}</p>
             <p className="font-body text-base text-[#A1A1AA] leading-relaxed mb-8">{product.description}</p>
 
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-4 mb-4">
               <span className="font-heading text-3xl text-white" data-testid="product-price">
                 {formatPrice(product.price_usd, currency)}
               </span>
@@ -78,11 +78,16 @@ export default function ProductPage() {
               </Select>
             </div>
 
+            <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-sm px-4 py-2 mb-6" data-testid="product-launch-date">
+              <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
+              <span className="font-body text-sm text-[#007AFF]">Available for order from 1 October 2026</span>
+            </div>
+
             <div className="flex flex-wrap gap-4 mb-6">
               <button onClick={handleAddToCart}
                 className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-sm hover:bg-[#3395FF] hover:shadow-[0_0_20px_rgba(0,122,255,0.4)] transition-all inline-flex items-center gap-2"
                 data-testid="add-to-cart-btn">
-                {added ? <><Check className="w-4 h-4" /> ADDED</> : <><ShoppingCart className="w-4 h-4" /> ADD TO CART</>}
+                {added ? <><Check className="w-4 h-4" /> ADDED</> : <><ShoppingCart className="w-4 h-4" /> PRE-ORDER</>}
               </button>
               <Link to="/cart"
                 className="bg-transparent text-white border border-white/20 font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-sm hover:border-white hover:bg-white/5 transition-all inline-flex items-center gap-2"

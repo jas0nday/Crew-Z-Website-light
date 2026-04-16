@@ -23,6 +23,10 @@ export default function ShopPage() {
           <div>
             <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-2">Shop</p>
             <h1 className="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-tighter text-white">The CrewZ Range</h1>
+            <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-sm px-4 py-2 mt-4" data-testid="shop-launch-date">
+              <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
+              <span className="font-body text-sm text-[#007AFF]">Available for order from 1 October 2026</span>
+            </div>
           </div>
           <Select value={currency} onValueChange={setCurrency}>
             <SelectTrigger className="w-28 bg-[#111111] border-white/10 text-white text-sm" data-testid="shop-currency-select">

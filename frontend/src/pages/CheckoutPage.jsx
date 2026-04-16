@@ -66,10 +66,10 @@ export default function CheckoutPage() {
         <div className="text-center max-w-md">
           <CheckCircle className="w-16 h-16 text-[#007AFF] mx-auto mb-6" />
           <h1 className="font-heading text-4xl text-white uppercase mb-4">Order Placed</h1>
-          <p className="font-body text-[#A1A1AA] mb-2">Your order number is:</p>
+          <p className="font-body text-sm text-[#A1A1AA] mb-2">Your order number is:</p>
           <p className="font-heading text-2xl text-[#007AFF] mb-6" data-testid="order-number">{orderNumber}</p>
           <p className="font-body text-sm text-[#A1A1AA] mb-8 leading-relaxed">
-            Thank you for your pre-order. We'll send order updates to your email. You can track your order status anytime.
+            Thank you for your pre-order! CrewZ ships from <strong className="text-white">1 October 2026</strong>. We'll send payment instructions and shipping updates to your email before launch.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to={`/track-order?order=${orderNumber}`}
@@ -148,7 +148,7 @@ export default function CheckoutPage() {
 
             <div className="bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-sm p-4">
               <p className="font-body text-sm text-white">
-                This is a pre-order. Payment processing will be available shortly. You will receive an email with payment instructions before your order ships.
+                CrewZ launches <strong>1 October 2026</strong>. This is a pre-order &mdash; you will not be charged now. Payment instructions will be sent to your email closer to the shipping date.
               </p>
             </div>
 
