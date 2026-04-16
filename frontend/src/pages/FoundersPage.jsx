@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Medal, GraduationCap, Flame, Trophy, Award, Star } from 'lucide-react';
 
@@ -7,6 +8,14 @@ const fadeUp = {
   viewport: { once: true },
   transition: { duration: 0.6 }
 };
+
+const founderPhotos = [
+  { url: 'https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/zsqy72oq_1992%20m4x.JPG', caption: "Men's Quad Scull — Barcelona 1992 Olympic Games" },
+  { url: 'https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/0felq96c_1996%20m2x.JPG', caption: "Men's Double Scull — Atlanta 1996 Olympic Games" },
+  { url: 'https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/q3f60lgj_92-027-19A%20%20DAY.jpg', caption: 'Australian Quad Scull — International Regatta' },
+  { url: 'https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/bfqgoml5_99N12-22%20%20%20DAY.jpg', caption: 'Single Scull — World Cup Racing' },
+  { url: 'https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/ilp2cnxx_Quad%20in%20Rochester.jpg', caption: 'Quad Scull — Rochester Regatta' },
+];
 
 const achievements = [
   { icon: Medal, title: 'Australian Olympic Team Member', detail: 'Barcelona 1992, Atlanta 1996, Sydney 2000' },
@@ -23,6 +32,15 @@ const education = [
 ];
 
 export default function FoundersPage() {
+  const [activePhoto, setActivePhoto] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActivePhoto(prev => (prev + 1) % founderPhotos.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="bg-[#0A0A0A]">
       {/* Hero */}
@@ -44,12 +62,14 @@ export default function FoundersPage() {
           <motion.div initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }}>
             <div className="relative aspect-[3/4] bg-[#111111] border border-white/10 rounded-sm overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1501117251959-59533d62881e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTF8MHwxfHNlYXJjaHwxfHxyb3dpbmclMjBjb2FjaCUyMHdhdGVyfGVufDB8fHx8MTc3NjM1ODI2M3ww&ixlib=rb-4.1.0&q=85"
-                alt="Founder on water" className="w-full h-full object-cover"
+                src="https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/0felq96c_1996%20m2x.JPG"
+                alt="Founder racing at the 1996 Atlanta Olympic Games" className="w-full h-full object-cover"
               />
-              <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-[#111111] to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent p-6 pt-16">
+                <p className="font-heading text-sm text-[#007AFF] uppercase tracking-wider">Atlanta 1996</p>
+                <p className="font-body text-xs text-[#A1A1AA]">Men's Double Scull — Olympic Games</p>
+              </div>
             </div>
-            <p className="mt-3 text-xs text-[#71717A] font-body italic">* Professional photo placeholder</p>
           </motion.div>
         </div>
       </section>
@@ -70,6 +90,61 @@ export default function FoundersPage() {
                 <h3 className="font-heading text-base uppercase tracking-wide text-white mb-1">{item.title}</h3>
                 <p className="font-body text-sm text-[#A1A1AA]">{item.detail}</p>
               </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Racing Archive */}
+      <section className="py-24 md:py-32 px-6 md:px-12" data-testid="founders-gallery">
+        <div className="max-w-7xl mx-auto">
+          <motion.div {...fadeUp} className="text-center mb-16">
+            <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-3">Racing Archive</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">From the Water</h2>
+          </motion.div>
+
+          {/* Featured rotating photo */}
+          <motion.div {...fadeUp} className="mb-12">
+            <div className="relative aspect-[21/9] bg-[#111111] border border-white/10 rounded-sm overflow-hidden max-w-5xl mx-auto">
+              {founderPhotos.map((photo, i) => (
+                <img
+                  key={i}
+                  src={photo.url}
+                  alt={photo.caption}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === activePhoto ? 'opacity-100' : 'opacity-0'}`}
+                />
+              ))}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A0A0A] to-transparent p-6 pt-16">
+                <p className="font-body text-sm text-white">{founderPhotos[activePhoto].caption}</p>
+              </div>
+            </div>
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-2 mt-4">
+              {founderPhotos.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActivePhoto(i)}
+                  className={`w-2 h-2 rounded-full transition-all ${i === activePhoto ? 'bg-[#007AFF] w-6' : 'bg-white/20 hover:bg-white/40'}`}
+                  data-testid={`gallery-dot-${i}`}
+                />
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Thumbnail grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {founderPhotos.map((photo, i) => (
+              <motion.button
+                key={i}
+                {...fadeUp}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
+                onClick={() => setActivePhoto(i)}
+                className={`relative aspect-square bg-[#111111] border rounded-sm overflow-hidden transition-all ${i === activePhoto ? 'border-[#007AFF] shadow-[0_0_20px_rgba(0,122,255,0.2)]' : 'border-white/10 hover:border-white/30'}`}
+                data-testid={`gallery-thumb-${i}`}
+              >
+                <img src={photo.url} alt={photo.caption} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/30 hover:bg-transparent transition-colors" />
+              </motion.button>
             ))}
           </div>
         </div>

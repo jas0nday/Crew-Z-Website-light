@@ -39,8 +39,8 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center overflow-hidden" data-testid="hero-section">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1569406125624-98ee19b01d4a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzF8MHwxfHNlYXJjaHw0fHxyb3dpbmclMjBib2F0fGVufDB8fHx8MTc3NjM1ODI3MHww&ixlib=rb-4.1.0&q=85"
-            alt="Rowing on water"
+            src="https://customer-assets.emergentagent.com/job_performance-first-2/artifacts/q3f60lgj_92-027-19A%20%20DAY.jpg"
+            alt="Australian Quad Scull racing at international regatta"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
