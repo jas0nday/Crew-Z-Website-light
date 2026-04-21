@@ -25,7 +25,7 @@ export default function ShopPage() {
             <h1 className="font-heading text-5xl sm:text-6xl font-bold uppercase tracking-tighter text-[#1A1A2E]">The CrewZ Range</h1>
             <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-xl px-4 py-2 mt-4" data-testid="shop-launch-date">
               <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
-              <span className="font-body text-sm text-[#007AFF]">Available for order from 1 October 2026</span>
+              <span className="font-body text-sm text-[#007AFF]">Available for order from 1 September 2026</span>
             </div>
           </div>
           <Select value={currency} onValueChange={setCurrency}>

@@ -28,7 +28,6 @@ const achievements = [
 
 const education = [
   { degree: 'MBA in Entrepreneurial Management', institution: 'Australian Institute of Management' },
-  { degree: 'Bachelor of Commerce', institution: 'Deakin University' },
 ];
 
 export default function FoundersPage() {
