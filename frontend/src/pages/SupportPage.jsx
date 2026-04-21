@@ -47,7 +47,9 @@ export default function SupportPage() {
         setSent(true);
         setForm({ name: '', email: '', subject: '', message: '' });
       }
-    } catch {}
+    } catch (err) {
+      console.error('Contact form submission failed:', err);
+    }
     setLoading(false);
   };
 
@@ -74,9 +76,9 @@ export default function SupportPage() {
           </motion.div>
           <motion.div {...fadeUp}>
             <Accordion type="single" collapsible className="space-y-2" data-testid="support-faq-accordion">
-              {generalFaqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="bg-[#FFFDF7] border border-gray-200 rounded-xl px-6">
-                  <AccordionTrigger className="font-body text-sm text-[#1A1A2E] hover:text-[#007AFF] py-4" data-testid={`support-faq-${i}`}>
+              {generalFaqs.map((faq) => (
+                <AccordionItem key={faq.q} value={`faq-${faq.q.slice(0, 20)}`} className="bg-[#FFFDF7] border border-gray-200 rounded-xl px-6">
+                  <AccordionTrigger className="font-body text-sm text-[#1A1A2E] hover:text-[#007AFF] py-4" data-testid={`support-faq-${faq.q.slice(0, 15)}`}>
                     {faq.q}
                   </AccordionTrigger>
                   <AccordionContent className="font-body text-sm text-[#6B7280] leading-relaxed pb-4">

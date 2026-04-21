@@ -112,10 +112,10 @@ export default function ProductPage() {
             <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-[#1A1A2E]">Built for Performance</h2>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {product.features.map((feature, i) => {
+            {product.features.map((feature) => {
               const Icon = iconMap[feature.icon] || Circle;
               return (
-                <motion.div key={feature.title} {...fadeUp} transition={{ duration: 0.6, delay: i * 0.1 }}
+                <motion.div key={feature.title} {...fadeUp} transition={{ duration: 0.6 }}
                   className="bg-[#FFFDF7] border border-gray-200 p-8 rounded-xl hover:border-[#007AFF]/30 transition-all"
                   data-testid={`feature-card-${i}`}>
                   <Icon className="w-8 h-8 text-[#007AFF] mb-4" />

@@ -34,8 +34,9 @@ export default function FoundersPage() {
   const [activePhoto, setActivePhoto] = useState(0);
 
   useEffect(() => {
+    const totalPhotos = founderPhotos.length;
     const interval = setInterval(() => {
-      setActivePhoto(prev => (prev + 1) % founderPhotos.length);
+      setActivePhoto(prev => (prev + 1) % totalPhotos);
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -105,9 +106,9 @@ export default function FoundersPage() {
           {/* Featured rotating photo */}
           <motion.div {...fadeUp} className="mb-12">
             <div className="relative aspect-[21/9] bg-white border border-gray-200 rounded-xl overflow-hidden max-w-5xl mx-auto">
-              {founderPhotos.map((photo, i) => (
+              {founderPhotos.map((photo) => (
                 <img
-                  key={i}
+                  key={photo.url}
                   src={photo.url}
                   alt={photo.caption}
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === activePhoto ? 'opacity-100' : 'opacity-0'}`}
@@ -119,11 +120,11 @@ export default function FoundersPage() {
             </div>
             {/* Dots indicator */}
             <div className="flex justify-center gap-2 mt-4">
-              {founderPhotos.map((_, i) => (
+              {founderPhotos.map((photo, i) => (
                 <button
-                  key={i}
+                  key={photo.url}
                   onClick={() => setActivePhoto(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${i === activePhoto ? 'bg-[#007AFF] w-6' : 'bg-white/20 hover:bg-white/40'}`}
+                  className={`w-2 h-2 rounded-full transition-all ${i === activePhoto ? 'bg-[#007AFF] w-6' : 'bg-gray-300 hover:bg-gray-400'}`}
                   data-testid={`gallery-dot-${i}`}
                 />
               ))}
@@ -134,7 +135,7 @@ export default function FoundersPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {founderPhotos.map((photo, i) => (
               <motion.button
-                key={i}
+                key={photo.url}
                 {...fadeUp}
                 transition={{ duration: 0.6, delay: i * 0.1 }}
                 onClick={() => setActivePhoto(i)}

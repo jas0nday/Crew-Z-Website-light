@@ -44,7 +44,9 @@ export default function CheckoutPage() {
         setStep('success');
         clearCart();
       }
-    } catch {}
+    } catch (err) {
+      console.error('Order placement failed:', err);
+    }
     setLoading(false);
   };
 

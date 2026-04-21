@@ -30,7 +30,9 @@ export default function HomePage() {
       });
       setSubscribed(true);
       setEmail('');
-    } catch {}
+    } catch (err) {
+      console.error('Newsletter subscription failed:', err);
+    }
   };
 
   return (
@@ -178,8 +180,8 @@ export default function HomePage() {
               { quote: "Finally, a rowing computer that makes sense. My phone is a better display than anything I've ever mounted on a rigger.", name: "Club Rower", role: "Masters Sculler" },
               { quote: "The Cox version replaced both our GPS and our ageing CoxBox in one device. No rewiring. It just works.", name: "University Cox", role: "Coxed Four" },
               { quote: "Seeing 8 boats on one tablet screen changed how I coach. I can compare crews in real time from the launch.", name: "Head Coach", role: "National Programme" },
-            ].map((t, i) => (
-              <motion.div key={i} {...fadeUp} transition={{ duration: 0.6, delay: i * 0.15 }}
+            ].map((t) => (
+              <motion.div key={t.name} {...fadeUp} transition={{ duration: 0.6, delay: ['Club Rower', 'University Cox', 'Head Coach'].indexOf(t.name) * 0.15 }}
                 className="bg-[#FFFDF7] border border-gray-200 p-8 rounded-xl text-left">
                 <p className="font-body text-sm text-[#6B7280] leading-relaxed mb-6 italic">"{t.quote}"</p>
                 <div>

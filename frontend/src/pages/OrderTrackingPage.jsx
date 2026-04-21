@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Search, Package, Truck, CheckCircle, Clock } from 'lucide-react';
@@ -21,13 +21,7 @@ export default function OrderTrackingPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (searchParams.get('order')) {
-      handleTrack();
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const handleTrack = async (e) => {
+  const handleTrack = useCallback(async (e) => {
     if (e) e.preventDefault();
     if (!orderNumber.trim()) return;
     setLoading(true);
@@ -40,11 +34,18 @@ export default function OrderTrackingPage() {
       } else {
         setError('Order not found. Please check the order number and try again.');
       }
-    } catch {
+    } catch (err) {
+      console.error('Order tracking failed:', err);
       setError('Something went wrong. Please try again.');
     }
     setLoading(false);
-  };
+  }, [orderNumber]);
+
+  useEffect(() => {
+    if (searchParams.get('order')) {
+      handleTrack();
+    }
+  }, [searchParams, handleTrack]);
 
   const currentStep = order ? STATUS_STEPS.indexOf(order.status) : -1;
 
@@ -98,12 +99,12 @@ export default function OrderTrackingPage() {
                       i <= currentStep ? 'bg-[#007AFF]' : 'bg-[#F5F3EE] border border-gray-200'
                     }`}>
                       {i <= currentStep
-                        ? <CheckCircle className="w-4 h-4 text-[#1A1A2E]" />
+                        ? <CheckCircle className="w-4 h-4 text-white" />
                         : <Clock className="w-3 h-3 text-[#9CA3AF]" />
                       }
                     </div>
                     {i < STATUS_STEPS.length - 1 && (
-                      <div className={`h-0.5 flex-1 mx-1 ${i < currentStep ? 'bg-[#007AFF]' : 'bg-white/10'}`} />
+                      <div className={`h-0.5 flex-1 mx-1 ${i < currentStep ? 'bg-[#007AFF]' : 'bg-gray-200'}`} />
                     )}
                   </div>
                 ))}
@@ -129,8 +130,8 @@ export default function OrderTrackingPage() {
 
             <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h3 className="font-heading text-sm text-[#007AFF] uppercase tracking-wider mb-4">Order Items</h3>
-              {order.items?.map((item, i) => (
-                <div key={i} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
+              {order.items?.map((item) => (
+                <div key={item.product_slug} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
                   <div>
                     <p className="font-body text-sm text-[#1A1A2E]">{item.product_name}</p>
                     <p className="font-body text-xs text-[#9CA3AF]">Qty: {item.quantity}</p>

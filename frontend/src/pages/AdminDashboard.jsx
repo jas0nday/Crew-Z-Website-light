@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
@@ -18,6 +18,150 @@ const STATUS_COLORS = {
   delivered: 'bg-green-500/20 text-green-400 border-green-500/30',
 };
 
+function StatCard({ icon: Icon, label, value }) {
+  return (
+    <div className="bg-white border border-gray-200 p-5 rounded-xl" data-testid={`stat-${label.toLowerCase()}`}>
+      <div className="flex items-center gap-2 mb-1">
+        <Icon className="w-4 h-4 text-[#007AFF]" />
+        <span className="font-body text-xs text-[#6B7280] uppercase tracking-wider">{label}</span>
+      </div>
+      <p className="font-heading text-2xl text-[#1A1A2E]">{value}</p>
+    </div>
+  );
+}
+
+function OrdersTable({ orders, onUpdateStatus, onUpdateTracking, trackingEdits, setTrackingEdits }) {
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+      <Table data-testid="orders-table">
+        <TableHeader>
+          <TableRow className="border-gray-200">
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Order</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Customer</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Items</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Total</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Status</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Tracking</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {orders.length === 0 ? (
+            <TableRow><TableCell colSpan={7} className="text-center text-[#9CA3AF] font-body py-8">No orders yet</TableCell></TableRow>
+          ) : orders.map(order => (
+            <TableRow key={order.order_id} className="border-gray-100" data-testid={`order-row-${order.order_number}`}>
+              <TableCell className="font-body text-xs text-[#1A1A2E]">{order.order_number}</TableCell>
+              <TableCell>
+                <p className="font-body text-xs text-[#1A1A2E]">{order.customer_name}</p>
+                <p className="font-body text-[10px] text-[#9CA3AF]">{order.customer_email}</p>
+              </TableCell>
+              <TableCell className="font-body text-xs text-[#6B7280]">
+                {order.items?.map(item => `${item.product_name} x${item.quantity}`).join(', ')}
+              </TableCell>
+              <TableCell className="font-body text-xs text-[#1A1A2E]">${order.total_usd}</TableCell>
+              <TableCell>
+                <Select value={order.status} onValueChange={(v) => onUpdateStatus(order.order_id, v)}>
+                  <SelectTrigger className="w-36 h-8 bg-transparent border-gray-200 text-xs" data-testid={`status-select-${order.order_number}`}>
+                    <Badge className={`${STATUS_COLORS[order.status] || 'bg-gray-500/20 text-gray-500'} text-[10px] border rounded-xl px-2 py-0`}>
+                      {order.status?.replace('_', ' ')}
+                    </Badge>
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-gray-200">
+                    {STATUS_OPTIONS.map(s => (
+                      <SelectItem key={s} value={s} className="text-[#1A1A2E] text-xs">{s.replace('_', ' ')}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center gap-1">
+                  <Input
+                    placeholder="Add tracking"
+                    value={trackingEdits[order.order_id] ?? order.tracking_number ?? ''}
+                    onChange={(e) => setTrackingEdits(prev => ({ ...prev, [order.order_id]: e.target.value }))}
+                    className="h-8 w-32 bg-transparent border-gray-200 text-xs text-[#1A1A2E]"
+                    data-testid={`tracking-input-${order.order_number}`}
+                  />
+                  {trackingEdits[order.order_id] !== undefined && (
+                    <button onClick={() => onUpdateTracking(order.order_id)} className="text-[#007AFF] hover:text-[#3395FF]"
+                      data-testid={`tracking-save-${order.order_number}`}>
+                      <Send className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
+              </TableCell>
+              <TableCell className="font-body text-[10px] text-[#9CA3AF]">
+                {order.created_at ? new Date(order.created_at).toLocaleDateString() : ''}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
+function MessagesTable({ messages }) {
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+      <Table data-testid="messages-table">
+        <TableHeader>
+          <TableRow className="border-gray-200">
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">From</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subject</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Message</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Date</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {messages.length === 0 ? (
+            <TableRow><TableCell colSpan={4} className="text-center text-[#9CA3AF] font-body py-8">No messages yet</TableCell></TableRow>
+          ) : messages.map((msg) => (
+            <TableRow key={msg.id || msg.email} className="border-gray-100">
+              <TableCell>
+                <p className="font-body text-xs text-[#1A1A2E]">{msg.name}</p>
+                <p className="font-body text-[10px] text-[#9CA3AF]">{msg.email}</p>
+              </TableCell>
+              <TableCell className="font-body text-xs text-[#1A1A2E]">{msg.subject}</TableCell>
+              <TableCell className="font-body text-xs text-[#6B7280] max-w-xs truncate">{msg.message}</TableCell>
+              <TableCell className="font-body text-[10px] text-[#9CA3AF]">
+                {msg.created_at ? new Date(msg.created_at).toLocaleDateString() : ''}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
+function SubscribersTable({ subscribers }) {
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+      <Table data-testid="subscribers-table">
+        <TableHeader>
+          <TableRow className="border-gray-200">
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Email</TableHead>
+            <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subscribed</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {subscribers.length === 0 ? (
+            <TableRow><TableCell colSpan={2} className="text-center text-[#9CA3AF] font-body py-8">No subscribers yet</TableCell></TableRow>
+          ) : subscribers.map((sub) => (
+            <TableRow key={sub.email} className="border-gray-100">
+              <TableCell className="font-body text-xs text-[#1A1A2E]">{sub.email}</TableCell>
+              <TableCell className="font-body text-[10px] text-[#9CA3AF]">
+                {sub.created_at ? new Date(sub.created_at).toLocaleDateString() : ''}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const { user, loading, login, logout } = useAuth();
   const [stats, setStats] = useState(null);
@@ -26,11 +170,7 @@ export default function AdminDashboard() {
   const [subscribers, setSubscribers] = useState([]);
   const [trackingEdits, setTrackingEdits] = useState({});
 
-  useEffect(() => {
-    if (user) fetchAll();
-  }, [user]);
-
-  const fetchAll = async () => {
+  const fetchAll = useCallback(async () => {
     const opts = { credentials: 'include' };
     try {
       const [s, o, m, sub] = await Promise.all([
@@ -41,8 +181,14 @@ export default function AdminDashboard() {
       if (o.ok) setOrders(await o.json());
       if (m.ok) setMessages(await m.json());
       if (sub.ok) setSubscribers(await sub.json());
-    } catch {}
-  };
+    } catch (err) {
+      console.error('Failed to fetch admin data:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user) fetchAll();
+  }, [user, fetchAll]);
 
   const updateStatus = async (orderId, status) => {
     await fetch(`${API}/admin/orders/${orderId}/status`, {
@@ -109,20 +255,10 @@ export default function AdminDashboard() {
         {/* Stats */}
         {stats && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { icon: Package, label: 'Orders', value: stats.total_orders },
-              { icon: DollarSign, label: 'Revenue', value: `$${stats.total_revenue_usd}` },
-              { icon: Users, label: 'Subscribers', value: stats.newsletter_subscribers },
-              { icon: Mail, label: 'Messages', value: stats.contact_messages },
-            ].map(s => (
-              <div key={s.label} className="bg-white border border-gray-200 p-5 rounded-xl" data-testid={`stat-${s.label.toLowerCase()}`}>
-                <div className="flex items-center gap-2 mb-1">
-                  <s.icon className="w-4 h-4 text-[#007AFF]" />
-                  <span className="font-body text-xs text-[#6B7280] uppercase tracking-wider">{s.label}</span>
-                </div>
-                <p className="font-heading text-2xl text-[#1A1A2E]">{s.value}</p>
-              </div>
-            ))}
+            <StatCard icon={Package} label="Orders" value={stats.total_orders} />
+            <StatCard icon={DollarSign} label="Revenue" value={`$${stats.total_revenue_usd}`} />
+            <StatCard icon={Users} label="Subscribers" value={stats.newsletter_subscribers} />
+            <StatCard icon={Mail} label="Messages" value={stats.contact_messages} />
           </div>
         )}
 
@@ -141,129 +277,15 @@ export default function AdminDashboard() {
           </TabsList>
 
           <TabsContent value="orders">
-            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
-              <Table data-testid="orders-table">
-                <TableHeader>
-                  <TableRow className="border-gray-200">
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Order</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Customer</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Items</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Total</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Status</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Tracking</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Date</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {orders.length === 0 ? (
-                    <TableRow><TableCell colSpan={7} className="text-center text-[#9CA3AF] font-body py-8">No orders yet</TableCell></TableRow>
-                  ) : orders.map(order => (
-                    <TableRow key={order.order_id} className="border-gray-100" data-testid={`order-row-${order.order_number}`}>
-                      <TableCell className="font-body text-xs text-[#1A1A2E]">{order.order_number}</TableCell>
-                      <TableCell>
-                        <p className="font-body text-xs text-[#1A1A2E]">{order.customer_name}</p>
-                        <p className="font-body text-[10px] text-[#9CA3AF]">{order.customer_email}</p>
-                      </TableCell>
-                      <TableCell className="font-body text-xs text-[#6B7280]">
-                        {order.items?.map(i => `${i.product_name} x${i.quantity}`).join(', ')}
-                      </TableCell>
-                      <TableCell className="font-body text-xs text-[#1A1A2E]">${order.total_usd}</TableCell>
-                      <TableCell>
-                        <Select value={order.status} onValueChange={(v) => updateStatus(order.order_id, v)}>
-                          <SelectTrigger className="w-36 h-8 bg-transparent border-gray-200 text-xs" data-testid={`status-select-${order.order_number}`}>
-                            <Badge className={`${STATUS_COLORS[order.status] || 'bg-gray-500/20 text-gray-500'} text-[10px] border rounded-xl px-2 py-0`}>
-                              {order.status?.replace('_', ' ')}
-                            </Badge>
-                          </SelectTrigger>
-                          <SelectContent className="bg-white border-gray-200">
-                            {STATUS_OPTIONS.map(s => (
-                              <SelectItem key={s} value={s} className="text-[#1A1A2E] text-xs">{s.replace('_', ' ')}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-1">
-                          <Input
-                            placeholder="Add tracking"
-                            value={trackingEdits[order.order_id] ?? order.tracking_number ?? ''}
-                            onChange={(e) => setTrackingEdits(prev => ({ ...prev, [order.order_id]: e.target.value }))}
-                            className="h-8 w-32 bg-transparent border-gray-200 text-xs text-[#1A1A2E]"
-                            data-testid={`tracking-input-${order.order_number}`}
-                          />
-                          {trackingEdits[order.order_id] !== undefined && (
-                            <button onClick={() => updateTracking(order.order_id)} className="text-[#007AFF] hover:text-[#3395FF]"
-                              data-testid={`tracking-save-${order.order_number}`}>
-                              <Send className="w-3 h-3" />
-                            </button>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
-                        {order.created_at ? new Date(order.created_at).toLocaleDateString() : ''}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+            <OrdersTable orders={orders} onUpdateStatus={updateStatus} onUpdateTracking={updateTracking} trackingEdits={trackingEdits} setTrackingEdits={setTrackingEdits} />
           </TabsContent>
 
           <TabsContent value="messages">
-            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
-              <Table data-testid="messages-table">
-                <TableHeader>
-                  <TableRow className="border-gray-200">
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">From</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subject</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Message</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Date</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {messages.length === 0 ? (
-                    <TableRow><TableCell colSpan={4} className="text-center text-[#9CA3AF] font-body py-8">No messages yet</TableCell></TableRow>
-                  ) : messages.map((msg, i) => (
-                    <TableRow key={i} className="border-gray-100">
-                      <TableCell>
-                        <p className="font-body text-xs text-[#1A1A2E]">{msg.name}</p>
-                        <p className="font-body text-[10px] text-[#9CA3AF]">{msg.email}</p>
-                      </TableCell>
-                      <TableCell className="font-body text-xs text-[#1A1A2E]">{msg.subject}</TableCell>
-                      <TableCell className="font-body text-xs text-[#6B7280] max-w-xs truncate">{msg.message}</TableCell>
-                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
-                        {msg.created_at ? new Date(msg.created_at).toLocaleDateString() : ''}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+            <MessagesTable messages={messages} />
           </TabsContent>
 
           <TabsContent value="subscribers">
-            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
-              <Table data-testid="subscribers-table">
-                <TableHeader>
-                  <TableRow className="border-gray-200">
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Email</TableHead>
-                    <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subscribed</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {subscribers.length === 0 ? (
-                    <TableRow><TableCell colSpan={2} className="text-center text-[#9CA3AF] font-body py-8">No subscribers yet</TableCell></TableRow>
-                  ) : subscribers.map((sub, i) => (
-                    <TableRow key={i} className="border-gray-100">
-                      <TableCell className="font-body text-xs text-[#1A1A2E]">{sub.email}</TableCell>
-                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
-                        {sub.created_at ? new Date(sub.created_at).toLocaleDateString() : ''}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+            <SubscribersTable subscribers={subscribers} />
           </TabsContent>
         </Tabs>
       </div>
