@@ -44,16 +44,16 @@ export default function ComparePage() {
   const { currency } = useCart();
 
   return (
-    <div className="bg-[#0A0A0A]">
+    <div className="bg-[#FFFDF7]">
       {/* Hero */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 md:px-12" data-testid="compare-hero">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-4">Compare</p>
-            <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6 text-white">
+            <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6 text-[#1A1A2E]">
               Find Your <span className="text-[#007AFF]">CrewZ</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-[#A1A1AA] max-w-2xl mx-auto">
+            <p className="font-body text-base md:text-lg text-[#6B7280] max-w-2xl mx-auto">
               Three products, one platform. Compare features to find the right CrewZ for you.
             </p>
           </motion.div>
@@ -61,47 +61,47 @@ export default function ComparePage() {
       </section>
 
       {/* Product Comparison */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-[#111111]" data-testid="product-comparison">
+      <section className="py-24 md:py-32 px-6 md:px-12 bg-white" data-testid="product-comparison">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-white">Speed vs Cox vs Coach</h2>
+            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-[#1A1A2E]">Speed vs Cox vs Coach</h2>
           </motion.div>
           <motion.div {...fadeUp} className="overflow-x-auto">
             <Table data-testid="product-compare-table">
               <TableHeader>
-                <TableRow className="border-white/10">
-                  <TableHead className="text-[#A1A1AA] font-heading uppercase tracking-wider text-xs min-w-[200px]">Feature</TableHead>
+                <TableRow className="border-gray-200">
+                  <TableHead className="text-[#6B7280] font-heading uppercase tracking-wider text-xs min-w-[200px]">Feature</TableHead>
                   {products.map(p => (
                     <TableHead key={p.slug} className="text-center font-heading uppercase tracking-wider text-xs min-w-[140px]">
                       <Link to={`/products/${p.slug}`} className="text-[#007AFF] hover:text-[#3395FF] transition-colors">
                         {p.name}
                       </Link>
-                      <div className="text-white text-lg mt-1">{formatPrice(p.price_usd, currency)}</div>
+                      <div className="text-[#1A1A2E] text-lg mt-1">{formatPrice(p.price_usd, currency)}</div>
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {productFeatures.map((row) => (
-                  <TableRow key={row.feature} className="border-white/5">
-                    <TableCell className="font-body text-sm text-[#A1A1AA]">{row.feature}</TableCell>
+                  <TableRow key={row.feature} className="border-gray-100">
+                    <TableCell className="font-body text-sm text-[#6B7280]">{row.feature}</TableCell>
                     {['speed', 'cox', 'coach'].map(slug => (
                       <TableCell key={slug} className="text-center">
                         {row[slug]
                           ? <Check className="w-4 h-4 text-[#007AFF] mx-auto" />
-                          : <X className="w-4 h-4 text-[#71717A] mx-auto" />
+                          : <X className="w-4 h-4 text-[#9CA3AF] mx-auto" />
                         }
                       </TableCell>
                     ))}
                   </TableRow>
                 ))}
-                <TableRow className="border-white/10">
-                  <TableCell className="font-heading text-sm text-white uppercase">Target User</TableCell>
+                <TableRow className="border-gray-200">
+                  <TableCell className="font-heading text-sm text-[#1A1A2E] uppercase">Target User</TableCell>
                   {products.map(p => (
-                    <TableCell key={p.slug} className="text-center font-body text-xs text-[#A1A1AA]">{p.target}</TableCell>
+                    <TableCell key={p.slug} className="text-center font-body text-xs text-[#6B7280]">{p.target}</TableCell>
                   ))}
                 </TableRow>
-                <TableRow className="border-white/10">
+                <TableRow className="border-gray-200">
                   <TableCell />
                   {products.map(p => (
                     <TableCell key={p.slug} className="text-center">
@@ -123,28 +123,28 @@ export default function ComparePage() {
       <section className="py-24 md:py-32 px-6 md:px-12" data-testid="vs-traditional">
         <div className="max-w-5xl mx-auto">
           <motion.div {...fadeUp} className="text-center mb-16">
-            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-white mb-4">
+            <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-[#1A1A2E] mb-4">
               CrewZ vs Traditional Rowing Computers
             </h2>
-            <p className="font-body text-base text-[#A1A1AA]">
+            <p className="font-body text-base text-[#6B7280]">
               Traditional rowing computers haven't changed in 30 years. Here's how CrewZ compares.
             </p>
           </motion.div>
           <motion.div {...fadeUp} className="overflow-x-auto">
             <Table data-testid="traditional-compare-table">
               <TableHeader>
-                <TableRow className="border-white/10">
-                  <TableHead className="text-[#A1A1AA] font-heading uppercase tracking-wider text-xs min-w-[160px]">Feature</TableHead>
-                  <TableHead className="text-[#71717A] font-heading uppercase tracking-wider text-xs min-w-[200px]">Traditional Device</TableHead>
+                <TableRow className="border-gray-200">
+                  <TableHead className="text-[#6B7280] font-heading uppercase tracking-wider text-xs min-w-[160px]">Feature</TableHead>
+                  <TableHead className="text-[#9CA3AF] font-heading uppercase tracking-wider text-xs min-w-[200px]">Traditional Device</TableHead>
                   <TableHead className="text-[#007AFF] font-heading uppercase tracking-wider text-xs min-w-[200px]">CrewZ</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {vsTraditional.map((row) => (
-                  <TableRow key={row.feature} className="border-white/5">
-                    <TableCell className="font-body text-sm text-[#A1A1AA]">{row.feature}</TableCell>
-                    <TableCell className="font-body text-sm text-[#71717A]">{row.traditional}</TableCell>
-                    <TableCell className="font-body text-sm text-white">{row.crewz}</TableCell>
+                  <TableRow key={row.feature} className="border-gray-100">
+                    <TableCell className="font-body text-sm text-[#6B7280]">{row.feature}</TableCell>
+                    <TableCell className="font-body text-sm text-[#9CA3AF]">{row.traditional}</TableCell>
+                    <TableCell className="font-body text-sm text-[#1A1A2E]">{row.crewz}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

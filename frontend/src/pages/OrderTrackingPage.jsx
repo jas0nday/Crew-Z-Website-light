@@ -49,11 +49,11 @@ export default function OrderTrackingPage() {
   const currentStep = order ? STATUS_STEPS.indexOf(order.status) : -1;
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-32 pb-24 px-6 md:px-12" data-testid="track-order-page">
+    <div className="min-h-screen bg-[#FFFDF7] pt-32 pb-24 px-6 md:px-12" data-testid="track-order-page">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-12">
           <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-2">Order Status</p>
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold uppercase tracking-tighter text-white">Track Your Order</h1>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold uppercase tracking-tighter text-[#1A1A2E]">Track Your Order</h1>
         </div>
 
         <form onSubmit={handleTrack} className="flex gap-3 mb-12" data-testid="track-form">
@@ -61,29 +61,29 @@ export default function OrderTrackingPage() {
             value={orderNumber}
             onChange={(e) => setOrderNumber(e.target.value)}
             placeholder="Enter order number (e.g. CZ-250615-ABC123)"
-            className="bg-[#111111] border-white/10 text-white flex-1"
+            className="bg-white border-gray-300 text-[#1A1A2E] flex-1"
             data-testid="track-input"
           />
           <button type="submit" disabled={loading}
-            className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-2 px-6 rounded-sm hover:bg-[#3395FF] transition-all disabled:opacity-50"
+            className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-2 px-6 rounded-full hover:bg-[#3395FF] transition-all disabled:opacity-50"
             data-testid="track-btn">
             <Search className="w-4 h-4" />
           </button>
         </form>
 
         {error && (
-          <div className="bg-red-500/10 border border-red-500/30 rounded-sm p-4 mb-8 text-center" data-testid="track-error">
+          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-8 text-center" data-testid="track-error">
             <p className="font-body text-sm text-red-400">{error}</p>
           </div>
         )}
 
         {order && (
           <div className="space-y-8" data-testid="track-result">
-            <div className="bg-[#111111] border border-white/10 rounded-sm p-6">
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <p className="font-heading text-xl text-white uppercase">{order.order_number}</p>
-                  <p className="font-body text-xs text-[#71717A]">Placed {new Date(order.created_at).toLocaleDateString()}</p>
+                  <p className="font-heading text-xl text-[#1A1A2E] uppercase">{order.order_number}</p>
+                  <p className="font-body text-xs text-[#9CA3AF]">Placed {new Date(order.created_at).toLocaleDateString()}</p>
                 </div>
                 <span className="font-heading text-lg text-[#007AFF]">
                   {order.currency === 'GBP' ? '\u00a3' : order.currency === 'AUD' ? 'A$' : '$'}{order.total_display}
@@ -95,11 +95,11 @@ export default function OrderTrackingPage() {
                 {STATUS_STEPS.map((step, i) => (
                   <div key={step} className="flex items-center flex-1">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                      i <= currentStep ? 'bg-[#007AFF]' : 'bg-[#1A1A1A] border border-white/10'
+                      i <= currentStep ? 'bg-[#007AFF]' : 'bg-[#F5F3EE] border border-gray-200'
                     }`}>
                       {i <= currentStep
-                        ? <CheckCircle className="w-4 h-4 text-white" />
-                        : <Clock className="w-3 h-3 text-[#71717A]" />
+                        ? <CheckCircle className="w-4 h-4 text-[#1A1A2E]" />
+                        : <Clock className="w-3 h-3 text-[#9CA3AF]" />
                       }
                     </div>
                     {i < STATUS_STEPS.length - 1 && (
@@ -108,7 +108,7 @@ export default function OrderTrackingPage() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-between text-[10px] font-body text-[#71717A] -mt-2 mb-6">
+              <div className="flex justify-between text-[10px] font-body text-[#9CA3AF] -mt-2 mb-6">
                 {STATUS_STEPS.map(step => (
                   <span key={step} className={`text-center ${step === order.status ? 'text-[#007AFF]' : ''}`}>
                     {STATUS_LABELS[step]}
@@ -117,25 +117,25 @@ export default function OrderTrackingPage() {
               </div>
 
               {order.tracking_number && (
-                <div className="bg-[#0A0A0A] border border-white/10 rounded-sm p-4 flex items-center gap-3">
+                <div className="bg-[#FFFDF7] border border-gray-200 rounded-xl p-4 flex items-center gap-3">
                   <Truck className="w-5 h-5 text-[#007AFF]" />
                   <div>
-                    <p className="font-body text-xs text-[#A1A1AA]">Tracking Number</p>
-                    <p className="font-body text-sm text-white">{order.tracking_number}</p>
+                    <p className="font-body text-xs text-[#6B7280]">Tracking Number</p>
+                    <p className="font-body text-sm text-[#1A1A2E]">{order.tracking_number}</p>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="bg-[#111111] border border-white/10 rounded-sm p-6">
+            <div className="bg-white border border-gray-200 rounded-xl p-6">
               <h3 className="font-heading text-sm text-[#007AFF] uppercase tracking-wider mb-4">Order Items</h3>
               {order.items?.map((item, i) => (
-                <div key={i} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
+                <div key={i} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-0">
                   <div>
-                    <p className="font-body text-sm text-white">{item.product_name}</p>
-                    <p className="font-body text-xs text-[#71717A]">Qty: {item.quantity}</p>
+                    <p className="font-body text-sm text-[#1A1A2E]">{item.product_name}</p>
+                    <p className="font-body text-xs text-[#9CA3AF]">Qty: {item.quantity}</p>
                   </div>
-                  <span className="font-body text-sm text-white">${item.total_usd}</span>
+                  <span className="font-body text-sm text-[#1A1A2E]">${item.total_usd}</span>
                 </div>
               ))}
             </div>

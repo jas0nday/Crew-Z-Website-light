@@ -9,32 +9,32 @@ body {
   font-family: 'Manrope', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0A0A0A;
-  color: #FFFFFF;
+  background-color: #FFFDF7;
+  color: #1A1A2E;
 }
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 6.7%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 6.7%;
-    --popover-foreground: 0 0% 100%;
+    --background: 43 100% 99%;
+    --foreground: 230 30% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 30% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 30% 14%;
     --primary: 211 100% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 63%;
+    --secondary: 40 14% 95%;
+    --secondary-foreground: 230 30% 14%;
+    --muted: 40 14% 95%;
+    --muted-foreground: 240 4% 46%;
     --accent: 211 100% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 211 100% 50%;
-    --radius: 0.125rem;
+    --radius: 0.75rem;
   }
 }
 

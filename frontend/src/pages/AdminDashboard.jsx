@@ -67,7 +67,7 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center pt-16">
+      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center pt-16">
         <div className="w-8 h-8 border-2 border-[#007AFF] border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -75,12 +75,12 @@ export default function AdminDashboard() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center pt-16" data-testid="admin-login-page">
+      <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center pt-16" data-testid="admin-login-page">
         <div className="text-center">
-          <h1 className="font-heading text-4xl md:text-5xl text-white uppercase mb-4">Admin Dashboard</h1>
-          <p className="font-body text-[#A1A1AA] mb-8">Sign in with Google to manage orders and view analytics.</p>
+          <h1 className="font-heading text-4xl md:text-5xl text-[#1A1A2E] uppercase mb-4">Admin Dashboard</h1>
+          <p className="font-body text-[#6B7280] mb-8">Sign in with Google to manage orders and view analytics.</p>
           <button onClick={login}
-            className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-sm hover:bg-[#3395FF] hover:shadow-[0_0_20px_rgba(0,122,255,0.4)] transition-all"
+            className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-full hover:bg-[#3395FF] hover:shadow-lg hover:shadow-blue-100 transition-all"
             data-testid="admin-login-btn">
             SIGN IN WITH GOOGLE
           </button>
@@ -90,17 +90,17 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] pt-24 pb-16 px-6 md:px-12" data-testid="admin-dashboard">
+    <div className="min-h-screen bg-[#FFFDF7] pt-24 pb-16 px-6 md:px-12" data-testid="admin-dashboard">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <h1 className="font-heading text-3xl md:text-4xl text-white uppercase">Admin Dashboard</h1>
+          <h1 className="font-heading text-3xl md:text-4xl text-[#1A1A2E] uppercase">Admin Dashboard</h1>
           <div className="flex items-center gap-4">
-            <span className="font-body text-sm text-[#A1A1AA]">{user.email}</span>
+            <span className="font-body text-sm text-[#6B7280]">{user.email}</span>
             <button onClick={fetchAll} className="text-[#007AFF] hover:text-[#3395FF] transition-colors" data-testid="refresh-btn">
               <RefreshCw className="w-4 h-4" />
             </button>
-            <button onClick={logout} className="text-gray-400 hover:text-white transition-colors" data-testid="admin-logout-btn">
+            <button onClick={logout} className="text-gray-500 hover:text-[#007AFF] transition-colors" data-testid="admin-logout-btn">
               <LogOut className="w-4 h-4" />
             </button>
           </div>
@@ -115,12 +115,12 @@ export default function AdminDashboard() {
               { icon: Users, label: 'Subscribers', value: stats.newsletter_subscribers },
               { icon: Mail, label: 'Messages', value: stats.contact_messages },
             ].map(s => (
-              <div key={s.label} className="bg-[#111111] border border-white/10 p-5 rounded-sm" data-testid={`stat-${s.label.toLowerCase()}`}>
+              <div key={s.label} className="bg-white border border-gray-200 p-5 rounded-xl" data-testid={`stat-${s.label.toLowerCase()}`}>
                 <div className="flex items-center gap-2 mb-1">
                   <s.icon className="w-4 h-4 text-[#007AFF]" />
-                  <span className="font-body text-xs text-[#A1A1AA] uppercase tracking-wider">{s.label}</span>
+                  <span className="font-body text-xs text-[#6B7280] uppercase tracking-wider">{s.label}</span>
                 </div>
-                <p className="font-heading text-2xl text-white">{s.value}</p>
+                <p className="font-heading text-2xl text-[#1A1A2E]">{s.value}</p>
               </div>
             ))}
           </div>
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
 
         {/* Tabs */}
         <Tabs defaultValue="orders">
-          <TabsList className="bg-[#111111] border border-white/10 mb-6">
+          <TabsList className="bg-white border border-gray-200 mb-6">
             <TabsTrigger value="orders" className="font-heading uppercase text-xs tracking-wider" data-testid="tab-orders">
               Orders ({orders.length})
             </TabsTrigger>
@@ -141,10 +141,10 @@ export default function AdminDashboard() {
           </TabsList>
 
           <TabsContent value="orders">
-            <div className="bg-[#111111] border border-white/10 rounded-sm overflow-x-auto">
+            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
               <Table data-testid="orders-table">
                 <TableHeader>
-                  <TableRow className="border-white/10">
+                  <TableRow className="border-gray-200">
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Order</TableHead>
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Customer</TableHead>
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Items</TableHead>
@@ -156,28 +156,28 @@ export default function AdminDashboard() {
                 </TableHeader>
                 <TableBody>
                   {orders.length === 0 ? (
-                    <TableRow><TableCell colSpan={7} className="text-center text-[#71717A] font-body py-8">No orders yet</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={7} className="text-center text-[#9CA3AF] font-body py-8">No orders yet</TableCell></TableRow>
                   ) : orders.map(order => (
-                    <TableRow key={order.order_id} className="border-white/5" data-testid={`order-row-${order.order_number}`}>
-                      <TableCell className="font-body text-xs text-white">{order.order_number}</TableCell>
+                    <TableRow key={order.order_id} className="border-gray-100" data-testid={`order-row-${order.order_number}`}>
+                      <TableCell className="font-body text-xs text-[#1A1A2E]">{order.order_number}</TableCell>
                       <TableCell>
-                        <p className="font-body text-xs text-white">{order.customer_name}</p>
-                        <p className="font-body text-[10px] text-[#71717A]">{order.customer_email}</p>
+                        <p className="font-body text-xs text-[#1A1A2E]">{order.customer_name}</p>
+                        <p className="font-body text-[10px] text-[#9CA3AF]">{order.customer_email}</p>
                       </TableCell>
-                      <TableCell className="font-body text-xs text-[#A1A1AA]">
+                      <TableCell className="font-body text-xs text-[#6B7280]">
                         {order.items?.map(i => `${i.product_name} x${i.quantity}`).join(', ')}
                       </TableCell>
-                      <TableCell className="font-body text-xs text-white">${order.total_usd}</TableCell>
+                      <TableCell className="font-body text-xs text-[#1A1A2E]">${order.total_usd}</TableCell>
                       <TableCell>
                         <Select value={order.status} onValueChange={(v) => updateStatus(order.order_id, v)}>
-                          <SelectTrigger className="w-36 h-8 bg-transparent border-white/10 text-xs" data-testid={`status-select-${order.order_number}`}>
-                            <Badge className={`${STATUS_COLORS[order.status] || 'bg-gray-500/20 text-gray-400'} text-[10px] border rounded-sm px-2 py-0`}>
+                          <SelectTrigger className="w-36 h-8 bg-transparent border-gray-200 text-xs" data-testid={`status-select-${order.order_number}`}>
+                            <Badge className={`${STATUS_COLORS[order.status] || 'bg-gray-500/20 text-gray-500'} text-[10px] border rounded-xl px-2 py-0`}>
                               {order.status?.replace('_', ' ')}
                             </Badge>
                           </SelectTrigger>
-                          <SelectContent className="bg-[#111111] border-white/10">
+                          <SelectContent className="bg-white border-gray-200">
                             {STATUS_OPTIONS.map(s => (
-                              <SelectItem key={s} value={s} className="text-white text-xs">{s.replace('_', ' ')}</SelectItem>
+                              <SelectItem key={s} value={s} className="text-[#1A1A2E] text-xs">{s.replace('_', ' ')}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
@@ -188,7 +188,7 @@ export default function AdminDashboard() {
                             placeholder="Add tracking"
                             value={trackingEdits[order.order_id] ?? order.tracking_number ?? ''}
                             onChange={(e) => setTrackingEdits(prev => ({ ...prev, [order.order_id]: e.target.value }))}
-                            className="h-8 w-32 bg-transparent border-white/10 text-xs text-white"
+                            className="h-8 w-32 bg-transparent border-gray-200 text-xs text-[#1A1A2E]"
                             data-testid={`tracking-input-${order.order_number}`}
                           />
                           {trackingEdits[order.order_id] !== undefined && (
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
                           )}
                         </div>
                       </TableCell>
-                      <TableCell className="font-body text-[10px] text-[#71717A]">
+                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
                         {order.created_at ? new Date(order.created_at).toLocaleDateString() : ''}
                       </TableCell>
                     </TableRow>
@@ -210,10 +210,10 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="messages">
-            <div className="bg-[#111111] border border-white/10 rounded-sm overflow-x-auto">
+            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
               <Table data-testid="messages-table">
                 <TableHeader>
-                  <TableRow className="border-white/10">
+                  <TableRow className="border-gray-200">
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">From</TableHead>
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subject</TableHead>
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Message</TableHead>
@@ -222,16 +222,16 @@ export default function AdminDashboard() {
                 </TableHeader>
                 <TableBody>
                   {messages.length === 0 ? (
-                    <TableRow><TableCell colSpan={4} className="text-center text-[#71717A] font-body py-8">No messages yet</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={4} className="text-center text-[#9CA3AF] font-body py-8">No messages yet</TableCell></TableRow>
                   ) : messages.map((msg, i) => (
-                    <TableRow key={i} className="border-white/5">
+                    <TableRow key={i} className="border-gray-100">
                       <TableCell>
-                        <p className="font-body text-xs text-white">{msg.name}</p>
-                        <p className="font-body text-[10px] text-[#71717A]">{msg.email}</p>
+                        <p className="font-body text-xs text-[#1A1A2E]">{msg.name}</p>
+                        <p className="font-body text-[10px] text-[#9CA3AF]">{msg.email}</p>
                       </TableCell>
-                      <TableCell className="font-body text-xs text-white">{msg.subject}</TableCell>
-                      <TableCell className="font-body text-xs text-[#A1A1AA] max-w-xs truncate">{msg.message}</TableCell>
-                      <TableCell className="font-body text-[10px] text-[#71717A]">
+                      <TableCell className="font-body text-xs text-[#1A1A2E]">{msg.subject}</TableCell>
+                      <TableCell className="font-body text-xs text-[#6B7280] max-w-xs truncate">{msg.message}</TableCell>
+                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
                         {msg.created_at ? new Date(msg.created_at).toLocaleDateString() : ''}
                       </TableCell>
                     </TableRow>
@@ -242,21 +242,21 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="subscribers">
-            <div className="bg-[#111111] border border-white/10 rounded-sm overflow-x-auto">
+            <div className="bg-white border border-gray-200 rounded-xl overflow-x-auto">
               <Table data-testid="subscribers-table">
                 <TableHeader>
-                  <TableRow className="border-white/10">
+                  <TableRow className="border-gray-200">
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Email</TableHead>
                     <TableHead className="text-[#007AFF] font-heading uppercase text-xs tracking-wider">Subscribed</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {subscribers.length === 0 ? (
-                    <TableRow><TableCell colSpan={2} className="text-center text-[#71717A] font-body py-8">No subscribers yet</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={2} className="text-center text-[#9CA3AF] font-body py-8">No subscribers yet</TableCell></TableRow>
                   ) : subscribers.map((sub, i) => (
-                    <TableRow key={i} className="border-white/5">
-                      <TableCell className="font-body text-xs text-white">{sub.email}</TableCell>
-                      <TableCell className="font-body text-[10px] text-[#71717A]">
+                    <TableRow key={i} className="border-gray-100">
+                      <TableCell className="font-body text-xs text-[#1A1A2E]">{sub.email}</TableCell>
+                      <TableCell className="font-body text-[10px] text-[#9CA3AF]">
                         {sub.created_at ? new Date(sub.created_at).toLocaleDateString() : ''}
                       </TableCell>
                     </TableRow>

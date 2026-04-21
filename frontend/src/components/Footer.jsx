@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="py-24 md:py-32 bg-[#050505] border-t border-white/10" data-testid="main-footer">
+    <footer className="py-24 md:py-32 bg-[#0A1628] border-t border-[#0A1628]" data-testid="main-footer">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div>
@@ -42,8 +42,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-[#71717A] font-body">&copy; {new Date().getFullYear()} CrewZ. All rights reserved.</p>
-          <p className="text-xs text-[#71717A] font-body">Built by a rower, for rowers.</p>
+          <p className="text-xs text-gray-400 font-body">&copy; {new Date().getFullYear()} CrewZ. All rights reserved.</p>
+          <p className="text-xs text-gray-400 font-body">Built by a rower, for rowers.</p>
         </div>
       </div>
     </footer>

@@ -39,10 +39,10 @@ export default function AuthCallback() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center" data-testid="auth-callback">
+    <div className="min-h-screen bg-[#FFFDF7] flex items-center justify-center" data-testid="auth-callback">
       <div className="text-center">
         <div className="w-8 h-8 border-2 border-[#007AFF] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-        <p className="text-white font-body">Authenticating...</p>
+        <p className="text-[#1A1A2E] font-body">Authenticating...</p>
       </div>
     </div>
   );
