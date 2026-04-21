@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div>
             <h3 className="font-heading text-2xl font-bold tracking-wider text-white mb-4">
-              CREW<span className="text-[#007AFF]">Z</span>
+              Crew<span className="text-[#007AFF]">Z</span>
             </h3>
             <p className="font-body text-sm text-[#A1A1AA] leading-relaxed">
               The world's first rowing computer that uses your smartphone as the display. Built by a three-time Olympian.
