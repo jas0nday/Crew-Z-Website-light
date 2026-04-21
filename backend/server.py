@@ -6,8 +6,9 @@ import os
 import logging
 import uuid
 import httpx
-from sendgrid import SendGridAPIClient
-from sendgrid.helpers.mail import Mail
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List, Optional
@@ -292,19 +293,22 @@ async def admin_list_subscribers(request: Request):
 
 
 async def send_fulfilment_email(order):
-    api_key = os.environ.get("SENDGRID_API_KEY")
-    sender_email = os.environ.get("SENDER_EMAIL")
+    smtp_host = os.environ.get("SMTP_HOST")
+    smtp_port = int(os.environ.get("SMTP_PORT", "587"))
+    smtp_user = os.environ.get("SMTP_USER")
+    smtp_pass = os.environ.get("SMTP_PASS")
+    sender_email = os.environ.get("SENDER_EMAIL", smtp_user)
     fulfilment_email = os.environ.get("FULFILMENT_EMAIL")
 
-    if not all([api_key, sender_email, fulfilment_email]):
-        logger.warning("SendGrid not configured - skipping fulfilment email for order %s", order["order_number"])
+    if not all([smtp_host, smtp_user, smtp_pass, fulfilment_email]):
+        logger.warning("SMTP not configured - skipping fulfilment email for order %s", order["order_number"])
         return
 
     items_text = "\n".join([f"  - {i['product_name']} x{i['quantity']} (${i['total_usd']})" for i in order["items"]])
     addr = order["shipping_address"]
     address_text = f"{addr['street']}, {addr['city']}, {addr.get('state', '')}, {addr['postal_code']}, {addr['country']}"
 
-    html_content = f"""
+    html_body = f"""
     <h2>New CrewZ Order: {order['order_number']}</h2>
     <table style="border-collapse:collapse;width:100%;max-width:600px;">
       <tr><td style="padding:8px;border-bottom:1px solid #eee;font-weight:bold;">Customer</td><td style="padding:8px;border-bottom:1px solid #eee;">{order['customer_name']}</td></tr>
@@ -317,17 +321,18 @@ async def send_fulfilment_email(order):
     <pre>{items_text}</pre>
     """
 
-    message = Mail(
-        from_email=sender_email,
-        to_emails=fulfilment_email,
-        subject=f"New CrewZ Order: {order['order_number']}",
-        html_content=html_content
-    )
+    msg = MIMEMultipart("alternative")
+    msg["From"] = sender_email
+    msg["To"] = fulfilment_email
+    msg["Subject"] = f"New CrewZ Order: {order['order_number']}"
+    msg.attach(MIMEText(html_body, "html"))
 
     try:
-        sg = SendGridAPIClient(api_key)
-        response = sg.send(message)
-        logger.info("Fulfilment email sent for order %s (status: %s)", order["order_number"], response.status_code)
+        with smtplib.SMTP(smtp_host, smtp_port) as server:
+            server.starttls()
+            server.login(smtp_user, smtp_pass)
+            server.send_message(msg)
+        logger.info("Fulfilment email sent for order %s", order["order_number"])
     except Exception as e:
         logger.error("Failed to send fulfilment email: %s", str(e))
 
