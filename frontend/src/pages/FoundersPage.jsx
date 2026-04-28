@@ -106,12 +106,12 @@ export default function FoundersPage() {
           {/* Featured rotating photo */}
           <motion.div {...fadeUp} className="mb-12">
             <div className="relative aspect-[21/9] bg-white border border-gray-200 rounded-xl overflow-hidden max-w-5xl mx-auto">
-              {founderPhotos.map((photo) => (
+              {founderPhotos.map((photo, idx) => (
                 <img
                   key={photo.url}
                   src={photo.url}
                   alt={photo.caption}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${i === activePhoto ? 'opacity-100' : 'opacity-0'}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${idx === activePhoto ? 'opacity-100' : 'opacity-0'}`}
                 />
               ))}
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A1628] to-transparent p-6 pt-16">

@@ -169,9 +169,11 @@ export default function AdminDashboard() {
   const [messages, setMessages] = useState([]);
   const [subscribers, setSubscribers] = useState([]);
   const [trackingEdits, setTrackingEdits] = useState({});
+  const [fetchError, setFetchError] = useState('');
 
   const fetchAll = useCallback(async () => {
     const opts = { credentials: 'include' };
+    setFetchError('');
     try {
       const [s, o, m, sub] = await Promise.all([
         fetch(`${API}/admin/stats`, opts), fetch(`${API}/admin/orders`, opts),
@@ -181,8 +183,8 @@ export default function AdminDashboard() {
       if (o.ok) setOrders(await o.json());
       if (m.ok) setMessages(await m.json());
       if (sub.ok) setSubscribers(await sub.json());
-    } catch (err) {
-      console.error('Failed to fetch admin data:', err);
+    } catch {
+      setFetchError('Failed to load admin data. Please refresh.');
     }
   }, []);
 
@@ -251,6 +253,12 @@ export default function AdminDashboard() {
             </button>
           </div>
         </div>
+
+        {fetchError && (
+          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4 mb-8">
+            <p className="font-body text-sm text-red-500" data-testid="admin-error">{fetchError}</p>
+          </div>
+        )}
 
         {/* Stats */}
         {stats && (

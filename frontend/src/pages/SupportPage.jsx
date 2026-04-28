@@ -31,12 +31,14 @@ export default function SupportPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const update = (field) => (e) => setForm(prev => ({ ...prev, [field]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     try {
       const res = await fetch(`${API}/contact`, {
         method: 'POST',
@@ -47,8 +49,8 @@ export default function SupportPage() {
         setSent(true);
         setForm({ name: '', email: '', subject: '', message: '' });
       }
-    } catch (err) {
-      console.error('Contact form submission failed:', err);
+    } catch {
+      setError('Failed to send message. Please try again.');
     }
     setLoading(false);
   };
@@ -108,6 +110,11 @@ export default function SupportPage() {
             </motion.div>
           ) : (
             <motion.form {...fadeUp} onSubmit={handleSubmit} className="space-y-4" data-testid="contact-form">
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                  <p className="font-body text-sm text-red-500" data-testid="contact-error">{error}</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block font-body text-xs text-[#6B7280] uppercase tracking-wider mb-1">Name *</label>

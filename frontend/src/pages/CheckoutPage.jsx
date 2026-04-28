@@ -12,6 +12,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState('form');
   const [orderNumber, setOrderNumber] = useState('');
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [form, setForm] = useState({
     customer_name: '', customer_email: '',
     street: '', city: '', state: '', postal_code: '', country: ''
@@ -23,6 +24,7 @@ export default function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
     try {
       const res = await fetch(`${API}/orders`, {
         method: 'POST',
@@ -44,8 +46,8 @@ export default function CheckoutPage() {
         setStep('success');
         clearCart();
       }
-    } catch (err) {
-      console.error('Order placement failed:', err);
+    } catch {
+      setError('Failed to place order. Please try again.');
     }
     setLoading(false);
   };
@@ -153,6 +155,12 @@ export default function CheckoutPage() {
                 CrewZ launches <strong>1 September 2026</strong>. This is a pre-order &mdash; you will not be charged now. Payment instructions will be sent to your email closer to the shipping date.
               </p>
             </div>
+
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                <p className="font-body text-sm text-red-500" data-testid="checkout-error">{error}</p>
+              </div>
+            )}
 
             <button type="submit" disabled={loading}
               className="w-full bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 rounded-full hover:bg-[#3395FF] hover:shadow-lg hover:shadow-blue-100 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
