@@ -8,6 +8,8 @@ const fadeUp = {
   transition: { duration: 0.6 }
 };
 
+const heroAnim = { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 } };
+
 const sections = [
   {
     icon: Smartphone,
@@ -66,7 +68,7 @@ export default function TechnologyPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white" />
         </div>
         <div className="relative max-w-4xl mx-auto text-center">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <motion.div {...heroAnim}>
             <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-4">Technology</p>
             <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6 text-[#1A1A2E]">
               The Tech Behind <span className="text-[#007AFF]">CrewZ</span>

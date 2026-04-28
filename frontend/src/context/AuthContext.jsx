@@ -15,12 +15,10 @@ export function AuthProvider({ children }) {
       else setUser(null);
     } catch { setUser(null); }
     setLoading(false);
+    // API is a module-level constant; setUser/setLoading are stable setState refs
   }, []);
 
   useEffect(() => {
-    // CRITICAL: If returning from OAuth callback, skip the /me check.
-    // AuthCallback will exchange the session_id and establish the session first.
-    // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
     if (window.location.hash?.includes('session_id=')) {
       setLoading(false);
       return;
@@ -29,7 +27,6 @@ export function AuthProvider({ children }) {
   }, [checkAuth]);
 
   const login = () => {
-    // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
     const redirectUrl = window.location.origin + '/admin';
     window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
   };

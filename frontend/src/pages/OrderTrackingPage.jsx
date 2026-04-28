@@ -47,6 +47,12 @@ function OrderItems({ items }) {
   );
 }
 
+function formatCurrencySymbol(currency) {
+  if (currency === 'GBP') return '\u00a3';
+  if (currency === 'AUD') return 'A$';
+  return '$';
+}
+
 export default function OrderTrackingPage() {
   const [searchParams] = useSearchParams();
   const [orderNumber, setOrderNumber] = useState(searchParams.get('order') || '');
@@ -99,7 +105,7 @@ export default function OrderTrackingPage() {
                   <p className="font-body text-xs text-[#9CA3AF]">Placed {new Date(order.created_at).toLocaleDateString()}</p>
                 </div>
                 <span className="font-heading text-lg text-[#007AFF]">
-                  {order.currency === 'GBP' ? '\u00a3' : order.currency === 'AUD' ? 'A$' : '$'}{order.total_display}
+                  {formatCurrencySymbol(order.currency)}{order.total_display}
                 </span>
               </div>
               <StatusTimeline status={order.status} />

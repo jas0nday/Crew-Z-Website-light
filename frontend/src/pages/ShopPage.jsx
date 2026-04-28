@@ -12,13 +12,15 @@ const fadeUp = {
   transition: { duration: 0.6 }
 };
 
+const heroAnim = { initial: { opacity: 0, y: 30 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 } };
+
 export default function ShopPage() {
   const { currency, setCurrency, addItem } = useCart();
 
   return (
     <div className="bg-[#FFFDF7] min-h-screen pt-32 pb-24 px-6 md:px-12" data-testid="shop-page">
       <div className="max-w-7xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+        <motion.div {...heroAnim}
           className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-16">
           <div>
             <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-2">Shop</p>
