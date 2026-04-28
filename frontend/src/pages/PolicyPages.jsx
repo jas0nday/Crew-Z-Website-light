@@ -50,6 +50,7 @@ export function PrivacyPolicy() {
     <PageWrapper title="Privacy Policy">
       <section data-testid="privacy-policy">
         <p>Last updated: {new Date().toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })}</p>
+        <p className="mt-2">CrewZ Rowing Technology Limited, Company No. 17180291, registered in England and Wales.</p>
 
         <h2 className="font-heading text-xl text-[#1A1A2E] uppercase mb-3 mt-8">Information We Collect</h2>
         <p>When you use our website and place orders, we collect:</p>

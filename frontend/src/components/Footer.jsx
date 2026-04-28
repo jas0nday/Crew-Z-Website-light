@@ -42,7 +42,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-gray-400 font-body">&copy; {new Date().getFullYear()} CrewZ. All rights reserved.</p>
+          <p className="text-xs text-gray-400 font-body">&copy; {new Date().getFullYear()} CrewZ Rowing Technology Limited. Company No. 17180291. Registered in England and Wales.</p>
           <p className="text-xs text-gray-400 font-body">Built by a rower, for rowers.</p>
         </div>
       </div>
