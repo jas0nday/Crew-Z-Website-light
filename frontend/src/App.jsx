@@ -35,7 +35,7 @@ export default function App() {
             <Route path="/order-tracking" element={<OrderTrackingPage />} />
             <Route path="/returns" element={<ReturnsPolicy />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
-            <Route path="/product" element={<ProductPage />} />
+            <Route path="/products/:slug" element={<ProductPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/support" element={<SupportPage />} />
             <Route path="/technology" element={<TechnologyPage />} />
