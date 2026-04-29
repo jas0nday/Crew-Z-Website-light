@@ -62,7 +62,7 @@ export default function ShopPage() {
                 <div className="flex items-center justify-between">
                   <span className="font-heading text-2xl text-[#1A1A2E]" data-testid={`price-${product.slug}`}>
                     {product.isSubscription ? (
-                      <><span className="text-sm text-[#6B7280] font-body">From </span>{formatSubscriptionPrice(product.price_usd, currency)}<span className="text-sm text-[#6B7280] font-body">/mo</span></>
+                      <><span className="text-sm text-[#6B7280] font-body">Free — </span>$50<span className="text-sm text-[#6B7280] font-body">/mo</span></>
                     ) : formatPrice(product.price_usd, currency)}
                   </span>
                   <div className="flex gap-2">

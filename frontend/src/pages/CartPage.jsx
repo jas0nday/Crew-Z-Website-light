@@ -50,7 +50,7 @@ export default function CartPage() {
               <div className="flex-1">
                 <h3 className="font-heading text-lg text-[#1A1A2E] uppercase">{item.name}</h3>
                 <p className="font-body text-sm text-[#6B7280]">
-                  {formatPrice(item.price_usd, currency)}{item.isSubscription ? '/mo' : ''} each
+                  {formatPrice(item.price_usd, currency)}{item.isSubscription ? (item.billingCycle === 'annual' ? '/year' : '/mo') : ''} each
                 </p>
               </div>
               <div className="flex items-center gap-4">

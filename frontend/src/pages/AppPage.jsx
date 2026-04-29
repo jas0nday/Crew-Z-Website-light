@@ -28,9 +28,12 @@ export default function AppPage() {
             <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6 text-[#1A1A2E]">
               CrewZ <span className="text-[#007AFF]">Companion</span>
             </h1>
-            <p className="font-body text-base md:text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed mb-8">
+            <p className="font-body text-base md:text-lg text-[#6B7280] max-w-2xl mx-auto leading-relaxed mb-4">
               The CrewZ app transforms your smartphone into a professional rowing display. Live metrics, session history, coach dashboard, and over-the-air updates — all in one app.
             </p>
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/30 rounded-xl px-5 py-2 mb-8">
+              <span className="font-heading text-sm text-green-600 uppercase tracking-wider">Athlete App — Always Free. No subscription required.</span>
+            </div>
             <div className="flex flex-wrap justify-center gap-4">
               <a href="#" className="bg-white border border-gray-200 rounded-xl py-3 px-6 hover:border-gray-400 transition-all inline-flex items-center gap-3" data-testid="app-store-btn">
                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#1A1A2E]" fill="currentColor">

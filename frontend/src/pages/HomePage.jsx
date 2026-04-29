@@ -64,7 +64,7 @@ function ProductCards({ currency }) {
                   <p className="font-body text-sm text-[#6B7280] mb-4 leading-relaxed">{product.shortDesc}</p>
                   <div className="flex items-center justify-between">
                     <span className="font-heading text-xl text-[#1A1A2E]">
-                      {product.isSubscription ? `From ${formatSubscriptionPrice(product.price_usd, currency)}/mo` : formatPrice(product.price_usd, currency)}
+                      {product.isSubscription ? 'Free — $50/mo' : formatPrice(product.price_usd, currency)}
                     </span>
                     <span className="text-[#007AFF] font-heading uppercase tracking-widest text-xs group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                       PRE-ORDER <ArrowRight className="w-3 h-3" />

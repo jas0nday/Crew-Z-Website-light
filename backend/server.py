@@ -30,10 +30,12 @@ logger = logging.getLogger(__name__)
 PRODUCT_PRICES = {
     "speed": {"name": "CrewZ Speed", "price_usd": 200},
     "cox": {"name": "CrewZ Cox", "price_usd": 250},
-    "coach-1": {"name": "CrewZ Coach (1 Athlete)", "price_usd": 9.99, "subscription": True},
-    "coach-2": {"name": "CrewZ Coach (2 Athletes)", "price_usd": 17.99, "subscription": True},
-    "coach-4": {"name": "CrewZ Coach (4 Athletes)", "price_usd": 29.99, "subscription": True},
-    "coach-8": {"name": "CrewZ Coach (8 Athletes)", "price_usd": 49.99, "subscription": True},
+    "coach-starter": {"name": "CrewZ Coach Starter (1 Athlete)", "price_usd": 9.99, "subscription": True, "billing": "monthly"},
+    "coach-starter-annual": {"name": "CrewZ Coach Starter (1 Athlete, Annual)", "price_usd": 99, "subscription": True, "billing": "annual"},
+    "coach-squad": {"name": "CrewZ Coach Small Squad (2-4 Athletes)", "price_usd": 24.99, "subscription": True, "billing": "monthly"},
+    "coach-squad-annual": {"name": "CrewZ Coach Small Squad (2-4 Athletes, Annual)", "price_usd": 249, "subscription": True, "billing": "annual"},
+    "coach-club": {"name": "CrewZ Coach Club (5-8 Athletes)", "price_usd": 50.00, "subscription": True, "billing": "monthly"},
+    "coach-club-annual": {"name": "CrewZ Coach Club (5-8 Athletes, Annual)", "price_usd": 500, "subscription": True, "billing": "annual"},
 }
 CURRENCY_RATES = {"USD": 1.0, "GBP": 0.79, "AUD": 1.54}
 ADMIN_EMAILS = [e.strip() for e in os.environ.get('ADMIN_EMAILS', '').split(',') if e.strip()]

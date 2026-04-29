@@ -77,7 +77,7 @@ export default function ComparePage() {
                         {p.name}
                       </Link>
                       <div className="text-[#1A1A2E] text-lg mt-1">
-                        {p.isSubscription ? <><span className="text-xs text-[#6B7280]">From </span>{formatSubscriptionPrice(p.price_usd, currency)}<span className="text-xs text-[#6B7280]">/mo</span></> : formatPrice(p.price_usd, currency)}
+                        {p.isSubscription ? <><span className="text-xs text-[#6B7280]">Free — </span>$50<span className="text-xs text-[#6B7280]">/mo</span></> : formatPrice(p.price_usd, currency)}
                       </div>
                     </TableHead>
                   ))}
