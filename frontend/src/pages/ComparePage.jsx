@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Check, X, ArrowRight } from 'lucide-react';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
-import { products, formatPrice } from '@/data/productData';
+import { products, formatPrice, formatSubscriptionPrice } from '@/data/productData';
 import { useCart } from '@/context/CartContext';
 
 const fadeUp = {
@@ -76,7 +76,9 @@ export default function ComparePage() {
                       <Link to={`/products/${p.slug}`} className="text-[#007AFF] hover:text-[#3395FF] transition-colors">
                         {p.name}
                       </Link>
-                      <div className="text-[#1A1A2E] text-lg mt-1">{formatPrice(p.price_usd, currency)}</div>
+                      <div className="text-[#1A1A2E] text-lg mt-1">
+                        {p.isSubscription ? <><span className="text-xs text-[#6B7280]">From </span>{formatSubscriptionPrice(p.price_usd, currency)}<span className="text-xs text-[#6B7280]">/mo</span></> : formatPrice(p.price_usd, currency)}
+                      </div>
                     </TableHead>
                   ))}
                 </TableRow>

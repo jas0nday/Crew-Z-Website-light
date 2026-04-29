@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Smartphone, RefreshCw, BarChart3, Zap, Check, X, ArrowRight, Mail } from 'lucide-react';
-import { products, formatPrice } from '@/data/productData';
+import { products, formatPrice, formatSubscriptionPrice } from '@/data/productData';
 import { useCart } from '@/context/CartContext';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -63,7 +63,9 @@ function ProductCards({ currency }) {
                   <h3 className="font-heading text-2xl font-bold text-[#1A1A2E] uppercase mb-2">{product.name}</h3>
                   <p className="font-body text-sm text-[#6B7280] mb-4 leading-relaxed">{product.shortDesc}</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-heading text-xl text-[#1A1A2E]">{formatPrice(product.price_usd, currency)}</span>
+                    <span className="font-heading text-xl text-[#1A1A2E]">
+                      {product.isSubscription ? `From ${formatSubscriptionPrice(product.price_usd, currency)}/mo` : formatPrice(product.price_usd, currency)}
+                    </span>
                     <span className="text-[#007AFF] font-heading uppercase tracking-widest text-xs group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                       PRE-ORDER <ArrowRight className="w-3 h-3" />
                     </span>

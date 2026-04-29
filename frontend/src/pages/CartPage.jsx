@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '@/context/CartContext';
-import { formatPrice } from '@/data/productData';
+import { formatPrice, formatSubscriptionPrice } from '@/data/productData';
 import { Minus, Plus, Trash2, ArrowRight, ShoppingCart } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -49,7 +49,9 @@ export default function CartPage() {
               data-testid={`cart-item-${item.slug}`}>
               <div className="flex-1">
                 <h3 className="font-heading text-lg text-[#1A1A2E] uppercase">{item.name}</h3>
-                <p className="font-body text-sm text-[#6B7280]">{formatPrice(item.price_usd, currency)} each</p>
+                <p className="font-body text-sm text-[#6B7280]">
+                  {formatPrice(item.price_usd, currency)}{item.isSubscription ? '/mo' : ''} each
+                </p>
               </div>
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">

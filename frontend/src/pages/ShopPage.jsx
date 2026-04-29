@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
-import { products, formatPrice } from '@/data/productData';
+import { products, formatPrice, formatSubscriptionPrice } from '@/data/productData';
 import { useCart } from '@/context/CartContext';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
@@ -61,16 +61,20 @@ export default function ShopPage() {
                 <p className="font-body text-sm text-[#6B7280] mb-6 leading-relaxed">{product.shortDesc}</p>
                 <div className="flex items-center justify-between">
                   <span className="font-heading text-2xl text-[#1A1A2E]" data-testid={`price-${product.slug}`}>
-                    {formatPrice(product.price_usd, currency)}
+                    {product.isSubscription ? (
+                      <><span className="text-sm text-[#6B7280] font-body">From </span>{formatSubscriptionPrice(product.price_usd, currency)}<span className="text-sm text-[#6B7280] font-body">/mo</span></>
+                    ) : formatPrice(product.price_usd, currency)}
                   </span>
                   <div className="flex gap-2">
-                    <button onClick={() => addItem(product)}
-                      className="bg-[#007AFF] text-white p-3 rounded-full hover:bg-[#3395FF] transition-all"
-                      data-testid={`add-cart-${product.slug}`}>
-                      <ShoppingCart className="w-4 h-4" />
-                    </button>
+                    {!product.isSubscription && (
+                      <button onClick={() => addItem(product)}
+                        className="bg-[#007AFF] text-white p-3 rounded-full hover:bg-[#3395FF] transition-all"
+                        data-testid={`add-cart-${product.slug}`}>
+                        <ShoppingCart className="w-4 h-4" />
+                      </button>
+                    )}
                     <Link to={`/products/${product.slug}`}
-                      className="bg-transparent text-[#1A1A2E] border border-gray-300 p-3 rounded-xl hover:border-gray-400 hover:bg-gray-50 transition-all"
+                      className={`${product.isSubscription ? 'bg-[#007AFF] text-white hover:bg-[#3395FF]' : 'bg-transparent text-[#1A1A2E] border border-gray-300 hover:border-gray-400 hover:bg-gray-50'} p-3 rounded-xl transition-all`}
                       data-testid={`view-${product.slug}`}>
                       <ArrowRight className="w-4 h-4" />
                     </Link>

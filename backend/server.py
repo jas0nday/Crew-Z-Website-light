@@ -30,7 +30,10 @@ logger = logging.getLogger(__name__)
 PRODUCT_PRICES = {
     "speed": {"name": "CrewZ Speed", "price_usd": 200},
     "cox": {"name": "CrewZ Cox", "price_usd": 250},
-    "coach": {"name": "CrewZ Coach", "price_usd": 300},
+    "coach-1": {"name": "CrewZ Coach (1 Athlete)", "price_usd": 9.99, "subscription": True},
+    "coach-2": {"name": "CrewZ Coach (2 Athletes)", "price_usd": 17.99, "subscription": True},
+    "coach-4": {"name": "CrewZ Coach (4 Athletes)", "price_usd": 29.99, "subscription": True},
+    "coach-8": {"name": "CrewZ Coach (8 Athletes)", "price_usd": 49.99, "subscription": True},
 }
 CURRENCY_RATES = {"USD": 1.0, "GBP": 0.79, "AUD": 1.54}
 ADMIN_EMAILS = [e.strip() for e in os.environ.get('ADMIN_EMAILS', '').split(',') if e.strip()]

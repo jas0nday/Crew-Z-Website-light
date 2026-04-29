@@ -4,7 +4,16 @@ export const CURRENCY_SYMBOLS = { USD: '$', GBP: '\u00a3', AUD: 'A$' };
 export const formatPrice = (priceUsd, currency = 'USD') => {
   const rate = CURRENCY_RATES[currency] || 1;
   const symbol = CURRENCY_SYMBOLS[currency] || '$';
-  return `${symbol}${Math.round(priceUsd * rate)}`;
+  const converted = priceUsd * rate;
+  if (converted < 1) return `${symbol}${converted.toFixed(2)}`;
+  return `${symbol}${Math.round(converted)}`;
+};
+
+export const formatSubscriptionPrice = (priceUsd, currency = 'USD') => {
+  const rate = CURRENCY_RATES[currency] || 1;
+  const symbol = CURRENCY_SYMBOLS[currency] || '$';
+  const converted = priceUsd * rate;
+  return `${symbol}${converted.toFixed(2)}`;
 };
 
 export const products = [
@@ -82,9 +91,16 @@ export const products = [
     slug: 'coach',
     name: 'CrewZ Coach',
     tagline: '8 boats. 8 streams. One screen.',
-    shortDesc: 'Connects to up to 8 CrewZ units simultaneously. Stream every crew\'s metrics live to your tablet.',
+    shortDesc: 'Connects to up to 8 CrewZ units simultaneously. Stream every crew\'s metrics live to your tablet. From $9.99/mo.',
     description: 'CrewZ Coach turns your tablet into a real-time coaching dashboard. Connect to up to 8 CrewZ units on the water simultaneously and see every boat\'s speed, stroke rate, heart rate, and distance on one screen. Session data is logged and downloadable post-session.',
-    price_usd: 300,
+    price_usd: 9.99,
+    isSubscription: true,
+    subscriptionTiers: [
+      { streams: 1, price: 9.99, label: '1 Athlete' },
+      { streams: 2, price: 17.99, label: '2 Athletes' },
+      { streams: 4, price: 29.99, label: '4 Athletes' },
+      { streams: 8, price: 49.99, label: '8 Athletes' },
+    ],
     target: 'Rowing coaches on the bank or in a launch',
     image: 'https://images.pexels.com/photos/1670768/pexels-photo-1670768.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
     features: [
