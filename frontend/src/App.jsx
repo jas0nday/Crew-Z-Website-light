@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { CartProvider } from "@/context/CartContext.jsx";
 import { AuthProvider } from "@/context/AuthContext.jsx";
+import { CartProvider } from "@/context/CartContext.jsx";
+import Header from "@/components/Header.jsx";
+import Footer from "@/components/Footer.jsx";
 import AdminDashboard from "@/pages/AdminDashboard.jsx";
 import AppPage from "@/pages/AppPage.jsx";
 import AuthCallback from "@/pages/AuthCallback.jsx";
@@ -21,6 +23,7 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
+          <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/app" element={<AppPage />} />
@@ -38,6 +41,7 @@ export default function App() {
             <Route path="/technology" element={<TechnologyPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
+          <Footer />
         </Router>
       </CartProvider>
     </AuthProvider>
