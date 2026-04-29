@@ -8,7 +8,7 @@ import ComparePage from "@/pages/ComparePage.jsx";
 import FoundersPage from "@/pages/FoundersPage.jsx";
 import HomePage from "@/pages/HomePage.jsx";
 import OrderTrackingPage from "@/pages/OrderTrackingPage.jsx";
-import PolicyPages from "@/pages/PolicyPages.jsx";
+import { ReturnsPolicy, PrivacyPolicy } from "@/pages/PolicyPages.jsx";
 import ProductPage from "@/pages/ProductPage.jsx";
 import ShopPage from "@/pages/ShopPage.jsx";
 import SupportPage from "@/pages/SupportPage.jsx";
@@ -26,7 +26,8 @@ export default function App() {
         <Route path="/compare" element={<ComparePage />} />
         <Route path="/founders" element={<FoundersPage />} />
         <Route path="/order-tracking" element={<OrderTrackingPage />} />
-        <Route path="/policy/*" element={<PolicyPages />} />
+        <Route path="/returns" element={<ReturnsPolicy />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/support" element={<SupportPage />} />
