@@ -28,7 +28,7 @@ function OrderSuccess({ orderNumber }) {
         <p className="font-body text-sm text-[#6B7280] mb-2">Your order number is:</p>
         <p className="font-heading text-2xl text-[#007AFF] mb-6" data-testid="order-number">{orderNumber}</p>
         <p className="font-body text-sm text-[#6B7280] mb-8 leading-relaxed">
-          Thank you for your pre-order! CrewZ ships from <strong className="text-[#1A1A2E]">1 September 2026</strong>. We'll send payment instructions and shipping updates to your email before launch.
+          Thank you for your pre-order! CrewZ ships from <strong className="text-[#1A1A2E]">1 September 2027</strong>. We'll send payment instructions and shipping updates to your email before launch.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to={`/track-order?order=${orderNumber}`} className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-3 px-6 rounded-full hover:bg-[#3395FF] transition-all" data-testid="track-order-link">TRACK ORDER</Link>
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
               </div>
             </div>
             <div className="bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-xl p-4">
-              <p className="font-body text-sm text-[#1A1A2E]">CrewZ launches <strong>1 September 2026</strong>. This is a pre-order &mdash; you will not be charged now.</p>
+              <p className="font-body text-sm text-[#1A1A2E]">CrewZ launches <strong>1 September 2027</strong>. This is a pre-order &mdash; you will not be charged now.</p>
             </div>
             {error && <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4"><p className="font-body text-sm text-red-500" data-testid="checkout-error">{error}</p></div>}
             <button type="submit" disabled={loading} className="w-full bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 rounded-full hover:bg-[#3395FF] hover:shadow-lg hover:shadow-blue-100 transition-all disabled:opacity-50 flex items-center justify-center gap-2" data-testid="place-order-btn">

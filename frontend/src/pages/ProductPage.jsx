@@ -76,7 +76,7 @@ function SubscriptionHero({ product, currency, setCurrency, onSelectTier, select
 
           <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-xl px-4 py-2 mb-6" data-testid="product-launch-date">
             <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
-            <span className="font-body text-sm text-[#007AFF]">Available for order from 1 September 2026</span>
+            <span className="font-body text-sm text-[#007AFF]">Available for order from 1 September 2027</span>
           </div>
 
           <button onClick={() => selectedTier && onSelectTier(selectedTier, true)} disabled={!selectedTier || selectedTier.price === null}
@@ -124,7 +124,7 @@ function ProductHero({ product, currency, setCurrency, onAddToCart, added }) {
           </div>
           <div className="inline-flex items-center gap-2 bg-[#007AFF]/10 border border-[#007AFF]/30 rounded-xl px-4 py-2 mb-6" data-testid="product-launch-date">
             <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
-            <span className="font-body text-sm text-[#007AFF]">Available for order from 1 September 2026</span>
+            <span className="font-body text-sm text-[#007AFF]">Available for order from 1 September 2027</span>
           </div>
           <div className="flex flex-wrap gap-4 mb-6">
             <button onClick={onAddToCart} className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-full hover:bg-[#3395FF] hover:shadow-lg hover:shadow-blue-100 transition-all inline-flex items-center gap-2" data-testid="add-to-cart-btn">

@@ -97,34 +97,7 @@ function RacingArchive({ activePhoto, setActivePhoto }) {
 }
 
 function EducationSection() {
-  return (
-    <section className="py-24 md:py-32 px-6 md:px-12" data-testid="founders-education">
-      <div className="max-w-4xl mx-auto">
-        <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <div>
-            <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-4">Education</p>
-            <div className="space-y-6">
-              {education.map(ed => (
-                <div key={ed.degree}>
-                  <h3 className="font-heading text-lg text-[#1A1A2E] uppercase">{ed.degree}</h3>
-                  <p className="font-body text-sm text-[#6B7280]">{ed.institution}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-4">The Vision</p>
-            <p className="font-body text-base text-[#6B7280] leading-relaxed mb-6">
-              Every rowing computer I used during my career had the same limitations: small screens, outdated software, and features designed by people who'd never raced. When smartphones became powerful enough, I saw the opportunity to build something fundamentally different.
-            </p>
-            <p className="font-body text-base text-[#6B7280] leading-relaxed">
-              CrewZ isn't a tech company trying to understand rowing. It's a rowing company that understands technology. Every feature, every metric, every design decision comes from 17 years of elite competition and coaching experience.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+  return null;
 }
 
 export default function FoundersPage() {

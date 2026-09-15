@@ -26,7 +26,7 @@ function HeroSection() {
           </p>
           <div className="inline-flex items-center gap-2 bg-[#007AFF]/20 border border-[#007AFF]/40 rounded-xl px-4 py-2 mb-8" data-testid="launch-date-badge">
             <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
-            <span className="font-heading text-sm text-white uppercase tracking-wider">Available 1 September 2026</span>
+            <span className="font-heading text-sm text-white uppercase tracking-wider">Available 1 September 2027</span>
           </div>
           <div className="flex flex-wrap gap-4">
             <Link to="/shop" className="bg-[#007AFF] text-white font-heading uppercase tracking-widest text-sm py-4 px-8 rounded-full hover:bg-[#3395FF] hover:shadow-lg hover:shadow-blue-100 transition-all inline-flex items-center gap-2" data-testid="hero-shop-btn">
@@ -193,7 +193,7 @@ function EmailCapture() {
         <motion.div {...fadeUp}>
           <Mail className="w-10 h-10 text-[#007AFF] mx-auto mb-4" />
           <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-[#1A1A2E] mb-4">Be First in Line</h2>
-          <p className="font-body text-base text-[#6B7280] mb-8">CrewZ launches 1 September 2026. Sign up for launch updates, early access, and rowing tech insights.</p>
+          <p className="font-body text-base text-[#6B7280] mb-8">CrewZ launches 1 September 2027. Sign up for launch updates, early access, and rowing tech insights.</p>
           {subscribed ? (
             <div className="bg-white border border-[#007AFF]/30 p-6 rounded-xl" data-testid="subscribe-success">
               <Check className="w-6 h-6 text-[#007AFF] mx-auto mb-2" />
