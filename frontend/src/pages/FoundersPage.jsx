@@ -34,7 +34,7 @@ function FounderHero() {
         <motion.div {...slideLeft}>
           <p className="text-[#007AFF] font-heading uppercase tracking-[0.2em] text-sm mb-4">The Founder</p>
           <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold uppercase tracking-tighter leading-none mb-6 text-[#1A1A2E]">
-            Built by a Rower,<br /><span className="text-[#007AFF]">for Rowers.</span>
+            Built by Rowers,<br /><span className="text-[#007AFF]">for Rowers.</span>
           </h1>
           <p className="font-body text-xl text-[#6B7280] italic leading-relaxed mb-6">"I've sat in that seat. I know what you need."</p>
           <p className="font-body text-base text-[#6B7280] leading-relaxed">
