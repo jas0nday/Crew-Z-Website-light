@@ -10,8 +10,9 @@ export default function Footer() {
               Crew<span className="text-[#007AFF]">Z</span>
             </h3>
             <p className="font-body text-sm text-[#A1A1AA] leading-relaxed">
-              The world's first rowing computer that uses your smartphone as the display. Built by a three-time Olympian.
+              The world's first rowing computer that uses your smartphone as the display. Built by rowers, for rowers.
             </p>
+            <a href="mailto:admin@crew-z.com" className="text-sm text-[#007AFF] hover:underline font-body mt-3 inline-block">admin@crew-z.com</a>
           </div>
           <div>
             <h4 className="font-heading text-sm uppercase tracking-[0.2em] text-[#007AFF] mb-4">Products</h4>

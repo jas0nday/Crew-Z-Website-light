@@ -70,7 +70,7 @@ function ContactForm() {
         <motion.div {...fadeUp} className="text-center mb-16">
           <Mail className="w-10 h-10 text-[#007AFF] mx-auto mb-4" />
           <h2 className="font-heading text-4xl md:text-5xl font-bold uppercase tracking-tight text-[#1A1A2E]">Get in Touch</h2>
-          <p className="font-body text-base text-[#6B7280] mt-4">Can't find the answer? Send us a message.</p>
+          <p className="font-body text-base text-[#6B7280] mt-4">Can't find the answer? Send us a message or email us directly at <a href="mailto:admin@crew-z.com" className="text-[#007AFF] hover:underline">admin@crew-z.com</a></p>
         </motion.div>
         {sent ? (
           <motion.div {...fadeUp} className="bg-white border border-[#007AFF]/30 rounded-xl p-8 text-center" data-testid="contact-success">
