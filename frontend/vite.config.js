@@ -6,6 +6,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
     plugins: [react()],
+    esbuild: { loader: "jsx", include: /src[/].*[.]jsx?$/, exclude: [] },
+    optimizeDeps: { esbuildOptions: { loader: { ".js": "jsx" } } },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
