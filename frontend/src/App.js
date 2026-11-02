@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
 import Header from '@/components/Header';
+import { SplashScreen } from '@/components/SplashScreen';
 import Footer from '@/components/Footer';
 import HomePage from '@/pages/HomePage';
 import ProductPage from '@/pages/ProductPage';
@@ -35,6 +36,7 @@ function AppRouter() {
 
   return (
     <>
+      <SplashScreen />
       <ScrollToTop />
       <Header />
       <main className="min-h-screen">

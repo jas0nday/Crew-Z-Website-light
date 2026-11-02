@@ -65,3 +65,5 @@ Build a modern, premium marketing and e-commerce website for CrewZ — a waterpr
 ## 2026-06 Update
 - Replaced text logo with animated CrewZ lockup (spinning rainbow border icon + CREWZ wordmark) in Header and Footer via components/CrewZLogo.jsx; styles in App.css (Bebas Neue font).
 - admin@crew-z.com shown as mailto in Footer and Support page.
+- Added browser-tab/home-screen icons (rainbow Z tile: favicon.ico, PNGs, apple-touch-icon, manifest.json) in public/, linked in both index.html files.
+- Added SplashScreen.jsx: spinning logo ~1s on first visit per browser session (sessionStorage key crewz_splash_seen).
