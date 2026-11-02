@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, ShoppingCart, ChevronDown } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useCart } from '@/context/CartContext';
+import CrewZLogo from '@/components/CrewZLogo';
 
 const navLinks = [
   { label: 'Products', children: [
@@ -26,9 +27,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 shadow-sm" data-testid="main-header">
       <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-        <Link to="/" className="font-heading text-2xl font-bold tracking-wider text-[#1A1A2E]" data-testid="logo-link">
-          Crew<span className="text-[#007AFF]">Z</span>
-        </Link>
+        <CrewZLogo size={36} />
 
         <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav">
           {navLinks.map(link =>

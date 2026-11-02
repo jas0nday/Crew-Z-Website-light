@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import CrewZLogo from '@/components/CrewZLogo';
 
 export default function Footer() {
   return (
@@ -6,10 +7,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div>
-            <h3 className="font-heading text-2xl font-bold tracking-wider text-white mb-4">
-              Crew<span className="text-[#007AFF]">Z</span>
-            </h3>
-            <p className="font-body text-sm text-[#A1A1AA] leading-relaxed">
+            <CrewZLogo size={40} dark testId="footer-logo-link" />
+            <p className="font-body text-sm text-[#A1A1AA] leading-relaxed mt-4">
               The world's first rowing computer that uses your smartphone as the display. Built by rowers, for rowers.
             </p>
             <a href="mailto:admin@crew-z.com" className="text-sm text-[#007AFF] hover:underline font-body mt-3 inline-block">admin@crew-z.com</a>
