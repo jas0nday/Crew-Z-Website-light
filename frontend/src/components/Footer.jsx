@@ -7,11 +7,11 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div>
-            <CrewZLogo size={40} dark testId="footer-logo-link" />
+            <CrewZLogo size={50} dark testId="footer-logo-link" />
             <p className="font-body text-sm text-[#A1A1AA] leading-relaxed mt-4">
               The world's first rowing computer that uses your smartphone as the display. Built by rowers, for rowers.
             </p>
-            <a href="mailto:admin@crew-z.com" className="text-sm text-[#007AFF] hover:underline font-body mt-3 inline-block">admin@crew-z.com</a>
+            <a href="mailto:admin@crew-z.com?subject=CrewZ%20Website%20Enquiry" data-testid="footer-email-link" className="text-sm text-[#007AFF] hover:underline font-body mt-3 inline-block">admin@crew-z.com</a>
           </div>
           <div>
             <h4 className="font-heading text-sm uppercase tracking-[0.2em] text-[#007AFF] mb-4">Products</h4>
