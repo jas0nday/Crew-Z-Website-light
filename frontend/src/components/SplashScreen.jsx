@@ -25,7 +25,7 @@ export const SplashScreen = () => {
         >
           <motion.div
             className="crewz-logo"
-            style={{ '--logo-size': '90px', '--speed': '1.6s' }}
+            style={{ '--logo-size': '90px' }}
             initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}

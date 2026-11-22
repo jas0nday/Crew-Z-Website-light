@@ -68,3 +68,4 @@ Build a modern, premium marketing and e-commerce website for CrewZ — a waterpr
 - Added browser-tab/home-screen icons (rainbow Z tile: favicon.ico, PNGs, apple-touch-icon, manifest.json) in public/, linked in both index.html files.
 - Added SplashScreen.jsx: spinning logo ~1s on first visit per browser session (sessionStorage key crewz_splash_seen).
 - Email links now prefill subject (Footer: "CrewZ Website Enquiry", Support: "CrewZ Support Enquiry"). Logo lockup enlarged 25% (header 45px, footer 50px, splash 90px).
+- Logo lockup now static (no spin): thicker gradient border (7% of size), transparent interior; Z follows text colour (white in footer). Favicon unchanged (white tile).

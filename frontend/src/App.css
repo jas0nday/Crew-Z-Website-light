@@ -7,9 +7,6 @@ html {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes crewz-spin {
-  to { transform: rotate(360deg); }
-}
 
 .animate-fade-in-up {
   animation: fadeInUp 0.6s ease-out forwards;
@@ -17,7 +14,6 @@ html {
 
 .crewz-logo {
   --logo-size: 36px;
-  --speed: 4s;
   --ink: #111;
   --accent: #2f6fd6;
   display: inline-flex;
@@ -31,23 +27,22 @@ html {
   flex: none;
   width: var(--logo-size);
   height: var(--logo-size);
-  border-radius: calc(var(--logo-size) * 0.22);
-  overflow: hidden;
-  isolation: isolate;
 }
 .crewz-logo .icon::before {
   content: "";
   position: absolute;
-  inset: -50%;
-  background: conic-gradient(#5b8def, #a77cf5, #f36fa0, #ff8a3d, #d9b48f, #5b8def);
-  animation: crewz-spin var(--speed) linear infinite;
-  z-index: -1;
+  inset: 0;
+  border-radius: calc(var(--logo-size) * 0.22);
+  border: calc(var(--logo-size) * 0.07) solid transparent;
+  background: linear-gradient(135deg, #7fb2f5 0%, #b98af0 40%, #f3709a 70%, #ff9a3d 85%, #d9b48f 100%) border-box;
+  -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) padding-box exclude, linear-gradient(#000 0 0);
 }
 .crewz-logo .face {
   position: absolute;
-  inset: calc(var(--logo-size) * 0.04);
-  border-radius: calc(var(--logo-size) * 0.18);
-  background: #fff;
+  inset: 0;
+  background: transparent;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,7 +52,7 @@ html {
   font-family: "Bebas Neue", "Oswald", "Arial Narrow", sans-serif;
   font-size: calc(var(--logo-size) * 0.55);
   line-height: 0.8;
-  color: #111;
+  color: var(--ink);
 }
 .crewz-logo .bar {
   width: calc(var(--logo-size) * 0.3);
@@ -78,9 +73,6 @@ html {
 .crewz-logo .word .accent { color: var(--accent); }
 .crewz-logo.logo-dark { --ink: #fff; }
 
-@media (prefers-reduced-motion: reduce) {
-  .crewz-logo .icon::before { animation: none; }
-}
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #FFFDF7; }
